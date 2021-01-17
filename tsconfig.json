@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "declaration": true,
+
+        "lib": [
+            "dom",
+            "es5",
+            "es6"
+        ],
+
+        "sourceMap": true,
+
+        "baseUrl": ".",
+        "outDir": "dist/",
+
+        "types": [
+            "node",
+            "reflect-metadata"
+        ],
+
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true
+    },
+
+    "include": [
+        "src/**/*.ts"
+    ],
+
+    "exclude": [
+        "node_modules"
+    ]
+}
