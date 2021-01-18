@@ -16,6 +16,15 @@ Install the latest version from Git using NPM:
 
     $> npm i --save https://github.com/apoptosis/hades.git
 
+
+Example
+=======
+
+You can try a simple example bot here:
+
+https://github.com/apoptosis/hades-example
+
+
 Getting Started
 ===============
 
