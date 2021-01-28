@@ -4,18 +4,21 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "esModuleInterop": true,
+
         "declaration": true,
+        "sourceMap": true,
+        "outDir": "dist/",
+
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
 
         "lib": [
             "dom",
             "es5",
             "es6"
         ],
-
-        "sourceMap": true,
-
-        "baseUrl": ".",
-        "outDir": "dist/",
 
         "types": [
             "node",
@@ -24,12 +27,7 @@
 
         "typeRoots": [
             "node_modules/@types"
-        ],
-
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true
+        ]
     },
 
     "include": [
