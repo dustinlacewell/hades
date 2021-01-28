@@ -1,8 +1,8 @@
-import { parse, ParserOptions } from "discord-command-parser";
-import { Message } from "discord.js";
+import { parse, ParserOptions } from 'discord-command-parser';
+import { Message } from 'discord.js';
 
-import CommandContext from "../commands/CommandContext";
-import { singleton } from "../decorators";
+import CommandContext from '../commands/CommandContext';
+import singleton from '../decorators/singleton';
 
 
 @singleton(DispatchService)

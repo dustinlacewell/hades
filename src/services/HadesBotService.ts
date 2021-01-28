@@ -9,12 +9,13 @@ import {
     Role,
     Snowflake,
     User
-} from "discord.js";
-import { inject, postConstruct } from "inversify";
-import CommandService from "./CommandService";
-import EventService from "./EventService";
+} from 'discord.js';
+import { inject, postConstruct } from 'inversify';
 
-import HadesClient from "./HadesClient";
+import CommandService from './CommandService';
+import EventService from './EventService';
+import HadesClient from './HadesClient';
+
 
 
 export default class HadesBotService {

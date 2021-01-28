@@ -18,16 +18,4 @@ export default class CommandContext {
         this.reader = parsed.reader;
         this.success = parsed.success;
     }
-
-    reply(content: any) {
-        return this.msg.reply(content);
-    }
-
-    react(emoji: any) {
-        return this.msg.react(emoji);
-    }
-
-    delete(timeout?: number, reason?: string) {
-        return this.msg.delete({ timeout, reason });
-    }
 }

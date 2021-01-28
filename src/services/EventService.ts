@@ -1,8 +1,8 @@
-import { inject } from "inversify";
+import { inject } from 'inversify';
 
-import { singleton } from "../decorators";
-import HadesBotService from "./HadesBotService";
-import HadesClient from "./HadesClient";
+import singleton from '../decorators/singleton';
+import HadesBotService from './HadesBotService';
+import HadesClient from './HadesClient';
 
 
 @singleton(EventService)

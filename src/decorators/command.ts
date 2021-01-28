@@ -1,17 +1,14 @@
 import { injectable } from "inversify";
 
+import { getCommandMeta } from "../meta";
+import { Constructor } from "../utils";
 
-export const commandRegistry = {};
 
 export default function command(name: string) {
-    function D<T extends { new(...args: any[]): {} }>(constructor: T) {
-        const newClass = class extends constructor {
-            name = name;
-        }
-        commandRegistry[name] = newClass;
-        return injectable()(newClass);
+    return (target: Constructor) => {
+        const meta = getCommandMeta(target);
+        meta.name = name;
+        meta.target = target;
+        return injectable()(target);
     }
-    return D;
-};
-
-
+}

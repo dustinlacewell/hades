@@ -1,5 +1,6 @@
 import { Client } from "discord.js";
-import { singleton } from "../decorators";
+
+import singleton from "../decorators/singleton";
 
 
 @singleton(HadesClient)
