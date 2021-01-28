@@ -1,0 +1,71 @@
+import { AwaitReactionsOptions, CollectorFilter, MessageEditOptions, ReactionCollectorOptions, StringResolvable, MessageEmbed, MessageOptions, MessageAdditions, Message, EmojiIdentifierResolvable } from "discord.js";
+import CommandContext from "./CommandContext";
+import DiscordService from "../services/DiscordService";
+export default abstract class Command {
+    context: CommandContext;
+    discord: DiscordService;
+    abstract execute(): Promise<any>;
+    get activity(): import("discord.js").MessageActivity;
+    get application(): import("discord.js").ClientApplication;
+    get args(): string[];
+    get attachments(): import("discord.js").Collection<string, import("discord.js").MessageAttachment>;
+    get body(): string;
+    get channel(): import("discord.js").TextChannel | import("discord.js").NewsChannel | import("discord.js").DMChannel;
+    get command(): string;
+    get createdAt(): Date;
+    get createdTimestamp(): number;
+    get deletable(): boolean;
+    get deleted(): boolean;
+    get editable(): boolean;
+    get editedAt(): Date;
+    get editedTimestamp(): number;
+    get edits(): Message[];
+    get embeds(): MessageEmbed[];
+    get flags(): Readonly<import("discord.js").MessageFlags>;
+    get guild(): import("discord.js").Guild;
+    get id(): string;
+    get member(): import("discord.js").GuildMember;
+    get mentions(): import("discord.js").MessageMentions;
+    get msg(): Message;
+    get pinnable(): boolean;
+    get pinned(): boolean;
+    get reactions(): import("discord.js").ReactionManager;
+    get reader(): import("discord-command-parser").MessageArgumentReader;
+    get reference(): import("discord.js").MessageReference;
+    get system(): boolean;
+    get tts(): boolean;
+    get type(): import("discord.js").MessageType;
+    get url(): string;
+    get user(): import("discord.js").User;
+    get webhookID(): string;
+    get members(): import("discord.js").Collection<string, import("discord.js").GuildMember>;
+    get categories(): import("discord.js").Collection<string, import("discord.js").CategoryChannel>;
+    get channels(): import("discord.js").Collection<string, import("discord.js").TextChannel>;
+    get roles(): import("discord.js").Collection<string, import("discord.js").Role>;
+    getMember(memberId: string): import("discord.js").GuildMember;
+    getOwner(): import("discord.js").GuildMember;
+    getChannel(channelId: string): import("discord.js").GuildChannel;
+    getRole(roleName: string): import("discord.js").Role;
+    awaitReactions(filter: CollectorFilter, options?: AwaitReactionsOptions): Promise<import("discord.js").Collection<string, import("discord.js").MessageReaction>>;
+    createReactionCollector(filter: CollectorFilter, options?: ReactionCollectorOptions): import("discord.js").ReactionCollector;
+    delete(options?: {
+        timeout?: number;
+        reason?: string;
+    }): Promise<Message>;
+    edit(content: StringResolvable, options: MessageEditOptions | MessageEmbed): Promise<Message>;
+    equals(message: Message, rawData: object): boolean;
+    fetchWebhook(): Promise<import("discord.js").Webhook>;
+    crosspost(): Promise<Message>;
+    fetch(force?: boolean): Promise<Message>;
+    pin(options?: {
+        reason?: string;
+    }): Promise<Message>;
+    react(emoji: EmojiIdentifierResolvable): Promise<import("discord.js").MessageReaction>;
+    reply(content: StringResolvable, options?: (MessageOptions & {
+        split?: false;
+    }) | MessageAdditions): Promise<Message>;
+    suppressEmbeds(suppress?: boolean): Promise<Message>;
+    unpin(options?: {
+        reason?: string;
+    }): Promise<Message>;
+}
