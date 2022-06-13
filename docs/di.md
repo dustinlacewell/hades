@@ -10,10 +10,10 @@ The DI container described in this document is based on
 
 ## What is it?
 
-DI is all about fetching *instances* of:
+DI is all about fetching *instances* of things:
 
-- Some *concrete type*
-- Some *concrete type* which *implements some interface*
+- Instances of some *concrete type*
+- Instances of some *concrete type* which *implements some interface*
 
 After telling the DI container how create instances of our types, it takes on the
 role of passing them to the code they're needed by.
@@ -26,16 +26,34 @@ Your code _depends_ on instances of those types. The container _injects_ them.
 
 Configuring the DI container consists of telling it how to make instances of types and interfaces.
 
-If you'll ever want an instance of `Foo`, you have to, ahead of time, tell the container _how_ to provide it. If you want an instance of some type which implements `IUseful`, then you have to previously have told the container _how to provide it_.
+If you'll ever want an instance of `Foo`, you have to, ahead of time, tell the container _how_ to provide it. If you want an instance of some type which extends `Useful`, then you have to previously have told the container _how to provide it_.
 
-The way you tell the container how to do this is by "binding" the desired types or interfaces to either:
+The way you tell the container how to do this is by "binding" the desired types to the way of making obtaining them:
 
-- **Constant values**: `di.bind<IUseful>().toConstantValue(new Foo())`
-- **Constructors**: `di.bind<Foo>().to(Foo)` or `di.bind<IUseful>().to(Foo)`
+The basic pattern: `container.bind(WHAT).to(HOW)`
 
-With **Constant Values** we provide the value that will be bound to the
-type. With **Constructors**, we let the container call the type's
-constructor to create the new instance.
+**Constant values**: 
+
+With constant values, we provide the value that will be bound to the type.
+  
+```ts
+container
+  .bind(Foo)
+  .toConstantValue(new Foo())
+```
+**Constructors**: 
+
+With constructors, we let the container call the type's constructor to create the new instance.
+
+```ts
+container
+  .bind(Foo)
+  .toSelf()
+
+container // from base class to implementor
+  .bind(Useful)
+  .to(Foo)
+```
 
 There are actually many ways to do binding in Inversify.js. [Check out the docs.](https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md#the-inversifyjs-features-and-api).
 
@@ -55,16 +73,16 @@ Once the container knows how to produce instances of our `@injectable()`
 decorated types, your code can request them. If your code _depended_ on using an instance of `Foo`, it could ask the container for one:
 
 ```cs
-var foo = di.get(Foo);
+var foo = container.get(Foo);
 ```
 
-Similarly, if your code depended on having an instance of `IUseful` but didn't care which implementation is used, it can again ask the container:
+Similarly, if your code depended on having an instance of `Useful` but didn't care which implementation is used, it can again ask the container:
 
 ```cs
-var useful = di.get(IUseful)
+var useful = container.get(Useful)
 ```
 
-In this case, the container would create an instance of `Foo` since we told it to bind `IUseful` to `Foo`.
+In this case, the container would create an instance of `Foo` since we told it to bind `Useful` to `Foo`.
 
 ## Injecting Instances
 
@@ -107,10 +125,11 @@ for a given type? Say we don't have a binding to use with `@inject()`? Instead, 
 If `Foo` takes an `ILogger` and an `Number` we can assume the `ILogger` interface is bound usefully. However, instead of binding `Number` in the container, we can instead bind `Foo` to a dynamic resolver, which is just a simple lambda function:
 
 ```ts
-di.bind<Foo>()
+container
+  .bind(Foo)
   .toDynamicValue((context: Context) => {
       var di = context.container;
-      var logger = di.get(ILogger);
+      var logger = container.get(ILogger);
       return new Foo(logger, randomNumber());
   })
   .inSingletonScope();
@@ -135,10 +154,11 @@ after the `.to()` clause of a binding:
 In the above example, by changing the lifetime to transient, a new random number is produced each time an instance of `Foo` is provided:
 
 ```ts
-di.bind<Foo>()
+container
+  .bind(Foo)
   .toDynamicValue((context: Context) => {
       var di = context.container;
-      var logger = di.get(ILogger);
+      var logger = container.get(ILogger);
       return new Foo(logger, randomNumber());
   })
   .inTransientScope();
@@ -152,7 +172,8 @@ Another way to inject `Foo` with a `Number` is by targetting a specific binding
 to it:
 
 ```ts
-di.bind<Number>()
+container
+  .bind(Number)
   .toDynamicValue(context: Context => randomNumber())
   .whenInjectedInto(Foo);
 ```
