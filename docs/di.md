@@ -1,6 +1,6 @@
 # Dependency Injection
 
-Dependency Injection is a big topic and central to Hades development.
+Dependency Injection is a big topic but central to Hades development.
 
 If you're unsure about why you should care, the definitive resource is [Dependency Injection by MarkSeeman](https://www.amazon.com/Dependency-Injection-NET-Mark-Seemann/dp/1935182501)
 but feel free to just google it.
