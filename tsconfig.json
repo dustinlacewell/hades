@@ -4,36 +4,30 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "esModuleInterop": true,
-
         "declaration": true,
         "sourceMap": true,
         "outDir": "dist/",
-
+        "skipLibCheck": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
-
         "lib": [
             "dom",
             "es5",
             "es6"
         ],
-
         "types": [
             "node",
             "reflect-metadata"
         ],
-
         "typeRoots": [
             "node_modules/@types"
         ]
     },
-
     "include": [
         "src/**/*.ts"
     ],
-
     "exclude": [
         "node_modules"
     ]

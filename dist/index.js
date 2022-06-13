@@ -1,55 +1,23 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validate = exports.singleton = exports.setCommandMetas = exports.parser = exports.getCommandMetas = exports.getCommandMeta = exports.getArgMeta = exports.description = exports.command = exports.arg = exports.addValidatorMethod = exports.addArgValidator = exports.YoutubeIdValidator = exports.Validator = exports.Parser = exports.HelpService = exports.HadesContainer = exports.HadesClient = exports.HadesBotService = exports.EventService = exports.DiscordService = exports.CommandService = exports.CommandMeta = exports.CommandFactory = exports.CommandContext = exports.Command = exports.Argument = exports.ArgType = exports.ArgMeta = exports.ArgError = void 0;
-const Argument_1 = __importDefault(require("./commands/Argument"));
-exports.Argument = Argument_1.default;
-const Command_1 = __importDefault(require("./commands/Command"));
-exports.Command = Command_1.default;
-const CommandContext_1 = __importDefault(require("./commands/CommandContext"));
-exports.CommandContext = CommandContext_1.default;
-const CommandFactory_1 = __importDefault(require("./commands/CommandFactory"));
-exports.CommandFactory = CommandFactory_1.default;
-const decorators_1 = require("./decorators");
-Object.defineProperty(exports, "arg", { enumerable: true, get: function () { return decorators_1.arg; } });
-Object.defineProperty(exports, "command", { enumerable: true, get: function () { return decorators_1.command; } });
-Object.defineProperty(exports, "description", { enumerable: true, get: function () { return decorators_1.description; } });
-Object.defineProperty(exports, "singleton", { enumerable: true, get: function () { return decorators_1.singleton; } });
-Object.defineProperty(exports, "validate", { enumerable: true, get: function () { return decorators_1.validate; } });
-const parser_1 = __importDefault(require("./decorators/parser"));
-exports.parser = parser_1.default;
-const ArgError_1 = __importDefault(require("./commands/ArgError"));
-exports.ArgError = ArgError_1.default;
-const HadesContainer_1 = __importDefault(require("./HadesContainer"));
-exports.HadesContainer = HadesContainer_1.default;
-const meta_1 = require("./meta");
-Object.defineProperty(exports, "ArgMeta", { enumerable: true, get: function () { return meta_1.ArgMeta; } });
-Object.defineProperty(exports, "ArgType", { enumerable: true, get: function () { return meta_1.ArgType; } });
-Object.defineProperty(exports, "CommandMeta", { enumerable: true, get: function () { return meta_1.CommandMeta; } });
-Object.defineProperty(exports, "addArgValidator", { enumerable: true, get: function () { return meta_1.addArgValidator; } });
-Object.defineProperty(exports, "addValidatorMethod", { enumerable: true, get: function () { return meta_1.addValidatorMethod; } });
-Object.defineProperty(exports, "getArgMeta", { enumerable: true, get: function () { return meta_1.getArgMeta; } });
-Object.defineProperty(exports, "getCommandMeta", { enumerable: true, get: function () { return meta_1.getCommandMeta; } });
-Object.defineProperty(exports, "getCommandMetas", { enumerable: true, get: function () { return meta_1.getCommandMetas; } });
-Object.defineProperty(exports, "setCommandMetas", { enumerable: true, get: function () { return meta_1.setCommandMetas; } });
-const Parser_1 = __importDefault(require("./parsers/Parser"));
-exports.Parser = Parser_1.default;
-const CommandService_1 = __importDefault(require("./services/CommandService"));
-exports.CommandService = CommandService_1.default;
-const DiscordService_1 = __importDefault(require("./services/DiscordService"));
-exports.DiscordService = DiscordService_1.default;
-const EventService_1 = __importDefault(require("./services/EventService"));
-exports.EventService = EventService_1.default;
-const HadesBotService_1 = __importDefault(require("./services/HadesBotService"));
-exports.HadesBotService = HadesBotService_1.default;
-const HadesClient_1 = __importDefault(require("./services/HadesClient"));
-exports.HadesClient = HadesClient_1.default;
-const HelpService_1 = __importDefault(require("./services/HelpService"));
-exports.HelpService = HelpService_1.default;
-const Validator_1 = __importDefault(require("./validators/Validator"));
-exports.Validator = Validator_1.default;
-const YoutubeIdValidator_1 = __importDefault(require("./validators/YoutubeIdValidator"));
-exports.YoutubeIdValidator = YoutubeIdValidator_1.default;
+__exportStar(require("./HadesContainer"), exports);
+__exportStar(require("./decorators"), exports);
+__exportStar(require("./services/DiscordService"), exports);
+__exportStar(require("./services/EventService"), exports);
+__exportStar(require("./services/HadesClient"), exports);
+__exportStar(require("./utils"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"camelToDash.js","sourceRoot":"","sources":["../../../src/text-commands/utils/camelToDash.ts"],"names":[],"mappings":";;;AACA,SAAgB,WAAW,CAAC,KAAa;IACrC,OAAO,KAAK,CAAC,OAAO,CAAC,iBAAiB,EAAE,OAAO,CAAC,CAAC,WAAW,EAAE,CAAC;AACnE,CAAC;AAFD,kCAEC"}

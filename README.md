@@ -4,7 +4,7 @@ Hades
 
 Typescript bot framework using [Inversify.js](https://inversify.io/) and [Discord.js](https://discord.js.org/#/).
 
-![hades.png](https://github.com/apoptosis/hades/blob/master/hades.png?raw=true)
+![hades.png](./hades.png)
 
 **Note**: Hades is a dependency-injection oriented framework. [Read about it here.](https://github.com/apoptosis/hades/blob/master/di.md)
 
@@ -14,7 +14,7 @@ Installation
 
 Install the latest version from Git using NPM:
 
-    $> npm i --save https://github.com/apoptosis/hades.git
+    $> npm i --save https://github.com/dustinlacewell/hades.git
 
 
 Example
@@ -22,7 +22,7 @@ Example
 
 You can try a simple example bot here:
 
-https://github.com/apoptosis/hades-example
+https://github.com/dustinlacewell/hades-example-bot
 
 
 Getting Started
@@ -35,7 +35,7 @@ import { HadesBotService, singleton } from "hades";
 
 
 @singleton(BotService)
-export default class BotService extends HadesBotService {
+export class BotService extends HadesBotService {
     async onReady() {
         console.log(`Logged in as ${this.client.user.username}.`);
     }
@@ -55,19 +55,24 @@ In our `index.ts` we can configure the container:
 
 ```ts
 import "reflect-metadata";
-import { HadesContainer } from "hades";
-import BotService from "./services/BotService";
 
-const container = new HadesContainer();
+import { HadesContainer } from "hades";
+import { installTextCommands } from "hades/dist/text-commands";
+
+import { BotService } from "./services/BotService";
+
+const container = new HadesContainer({
+    installers: [installTextCommands],
+});
 container.get(BotService);
 ```
 
 In order for dependency injection to work, we need to import
 `reflect-metadata`. Just a fact of life.
 
-We then import the `HadesContainer` from Hades. We also need to import our
-`BotService`. After instantiating the `HadesContainer` we request an instance
-of our `BotService`.
+We then import the `HadesContainer` from Hades. We add text command support by
+using the `installTextCommands` installer. We then request an instance of our
+`BotService`.
 
 Writing the Config
 ------------------
@@ -91,11 +96,11 @@ Commands are classes that extend the `Command` class from Hades. They also need
 the `@command()` decorator.
 
 ```ts
-import { Command, CommandContext, command } from "hades";
+import { Command, TextCommandContext, command } from "hades/dist/text-commands";
 
 @command("hello")
-export default class HelloCommand extends Command {
-    execute(context: CommandContext): void {
+export class HelloCommand extends Command {
+    execute(context: TextCommandContext): void {
         context.reply("Howdy!");
     }
 }

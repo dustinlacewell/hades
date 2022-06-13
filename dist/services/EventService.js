@@ -11,14 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var EventService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EventService = void 0;
 const inversify_1 = require("inversify");
-const singleton_1 = __importDefault(require("../decorators/singleton"));
-const HadesClient_1 = __importDefault(require("./HadesClient"));
+const decorators_1 = require("../decorators");
+const HadesClient_1 = require("./HadesClient");
 let EventService = EventService_1 = class EventService {
     constructor(client) {
         this.client = client;
@@ -50,7 +48,8 @@ let EventService = EventService_1 = class EventService {
             .on('guildMemberUpdate', bot.onGuildMemberUpdate.bind(bot))
             .on('guildMembersChunk', bot.onGuildMembersChunk.bind(bot))
             .on('guildUpdate', bot.onGuildUpdate.bind(bot))
-            .on('message', bot.onMessage.bind(bot))
+            // .on('message', bot.onMessage.bind(bot))
+            .on('messageCreate', (...args) => bot.onMessage(...args))
             .on('messageDelete', bot.onMessageDelete.bind(bot))
             .on('messageDeleteBulk', bot.onMessageDeleteBulk.bind(bot))
             .on('messageReactionAdd', bot.onMessageReactionAdd.bind(bot))
@@ -69,9 +68,9 @@ let EventService = EventService_1 = class EventService {
     }
 };
 EventService = EventService_1 = __decorate([
-    singleton_1.default(EventService_1),
-    __param(0, inversify_1.inject(HadesClient_1.default)),
-    __metadata("design:paramtypes", [HadesClient_1.default])
+    (0, decorators_1.singleton)(EventService_1),
+    __param(0, (0, inversify_1.inject)(HadesClient_1.HadesClient)),
+    __metadata("design:paramtypes", [HadesClient_1.HadesClient])
 ], EventService);
-exports.default = EventService;
+exports.EventService = EventService;
 //# sourceMappingURL=EventService.js.map

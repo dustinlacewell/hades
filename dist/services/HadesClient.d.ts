@@ -1,3 +1,4 @@
 import { Client } from "discord.js";
-export default class HadesClient extends Client {
+export declare class HadesClient extends Client {
+    constructor();
 }

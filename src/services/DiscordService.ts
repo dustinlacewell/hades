@@ -1,18 +1,16 @@
-import { CategoryChannel, GuildChannel, TextChannel } from 'discord.js';
+import { ChannelType } from 'discord-api-types/v10';
+import { CategoryChannel, GuildBasedChannel, TextChannel } from 'discord.js';
 import { inject } from 'inversify';
 
-import singleton from '../decorators/singleton';
-import HadesClient from './HadesClient';
-
-
-type Constructor<T> = { new(...args: any[]): T };
-function typeGuard<T>(o: T, className: Constructor<T>): o is T {
-    return o instanceof className;
-}
+import { singleton } from '../decorators';
+import { HadesClient } from './HadesClient';
 
 @singleton(DiscordService)
-export default class DiscordService {
-    constructor(@inject(HadesClient) private client: HadesClient) { }
+export class DiscordService {
+    constructor(
+        @inject(HadesClient)
+        private client: HadesClient,
+    ) { }
 
     get guilds() {
         return this.client.guilds.cache;
@@ -42,25 +40,25 @@ export default class DiscordService {
     getOwner(guildId: string) {
         const guild = this.guilds.get(guildId);
         if (guild !== undefined) {
-            return guild.owner;
+            return guild.ownerId;
         }
     }
 
-    getChansOf<T extends GuildChannel>(className: Constructor<T>, guildId: string) {
+    getChansOf<T extends GuildBasedChannel>(type: ChannelType, guildId: string) {
         const guild = this.guilds.get(guildId);
         if (guild !== undefined) {
             return guild.channels.cache
-                .filter((chan, _) => typeGuard(chan, className))
+                .filter((chan, _) => ChannelType[chan.type] === type)
                 .mapValues((chan, _) => chan as T)
         }
     }
 
     getCategories(guildId: string) {
-        return this.getChansOf(CategoryChannel, guildId);
+        return this.getChansOf<CategoryChannel>(ChannelType.GuildCategory, guildId);
     }
 
     getChannels(guildId: string) {
-        return this.getChansOf(TextChannel, guildId);
+        return this.getChansOf<TextChannel>(ChannelType.GuildText, guildId);
     }
 
     getChannel(guildId: string, channelId: string) {

@@ -11,18 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var DiscordService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
+exports.DiscordService = void 0;
+const v10_1 = require("discord-api-types/v10");
 const inversify_1 = require("inversify");
-const singleton_1 = __importDefault(require("../decorators/singleton"));
-const HadesClient_1 = __importDefault(require("./HadesClient"));
-function typeGuard(o, className) {
-    return o instanceof className;
-}
+const decorators_1 = require("../decorators");
+const HadesClient_1 = require("./HadesClient");
 let DiscordService = DiscordService_1 = class DiscordService {
     constructor(client) {
         this.client = client;
@@ -51,24 +46,22 @@ let DiscordService = DiscordService_1 = class DiscordService {
     getOwner(guildId) {
         const guild = this.guilds.get(guildId);
         if (guild !== undefined) {
-            return guild.owner;
+            return guild.ownerId;
         }
     }
-    getChansOf(className, guildId) {
+    getChansOf(type, guildId) {
         const guild = this.guilds.get(guildId);
-        console.log(`Found guild from id ${guildId}: ${guild}`);
         if (guild !== undefined) {
             return guild.channels.cache
-                .filter((chan, _) => typeGuard(chan, className))
+                .filter((chan, _) => v10_1.ChannelType[chan.type] === type)
                 .mapValues((chan, _) => chan);
         }
     }
     getCategories(guildId) {
-        return this.getChansOf(discord_js_1.CategoryChannel, guildId);
+        return this.getChansOf(v10_1.ChannelType.GuildCategory, guildId);
     }
     getChannels(guildId) {
-        console.log(`Checking guild channels for guild: ${guildId}`);
-        return this.getChansOf(discord_js_1.TextChannel, guildId);
+        return this.getChansOf(v10_1.ChannelType.GuildText, guildId);
     }
     getChannel(guildId, channelId) {
         const guild = this.guilds.get(guildId);
@@ -84,9 +77,9 @@ let DiscordService = DiscordService_1 = class DiscordService {
     }
 };
 DiscordService = DiscordService_1 = __decorate([
-    singleton_1.default(DiscordService_1),
-    __param(0, inversify_1.inject(HadesClient_1.default)),
-    __metadata("design:paramtypes", [HadesClient_1.default])
+    (0, decorators_1.singleton)(DiscordService_1),
+    __param(0, (0, inversify_1.inject)(HadesClient_1.HadesClient)),
+    __metadata("design:paramtypes", [HadesClient_1.HadesClient])
 ], DiscordService);
-exports.default = DiscordService;
+exports.DiscordService = DiscordService;
 //# sourceMappingURL=DiscordService.js.map

@@ -1,12 +1,12 @@
 import { inject } from 'inversify';
 
-import singleton from '../decorators/singleton';
-import HadesBotService from './HadesBotService';
-import HadesClient from './HadesClient';
+import { singleton } from '../decorators';
+import { HadesBotService } from '../text-commands/services/HadesBotService';
+import { HadesClient } from './HadesClient';
 
 
 @singleton(EventService)
-export default abstract class EventService {
+export abstract class EventService {
     client: HadesClient;
 
     constructor(@inject(HadesClient) client: HadesClient) {
@@ -40,7 +40,8 @@ export default abstract class EventService {
             .on('guildMemberUpdate', bot.onGuildMemberUpdate.bind(bot))
             .on('guildMembersChunk', bot.onGuildMembersChunk.bind(bot))
             .on('guildUpdate', bot.onGuildUpdate.bind(bot))
-            .on('message', bot.onMessage.bind(bot))
+            // .on('message', bot.onMessage.bind(bot))
+            .on('messageCreate', (...args) => bot.onMessage(...args))
             .on('messageDelete', bot.onMessageDelete.bind(bot))
             .on('messageDeleteBulk', bot.onMessageDeleteBulk.bind(bot))
             .on('messageReactionAdd', bot.onMessageReactionAdd.bind(bot))

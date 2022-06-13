@@ -1,9 +1,8 @@
-import { Container, interfaces } from 'inversify';
-export default class HadesContainer extends Container {
-    constructor(options?: interfaces.ContainerOptions);
-    private bindCommandFactories;
-    private bindDecoratedParsers;
-    private loadDecoratorSupport;
+import { Container, interfaces } from "inversify";
+export declare type HadesContainerOptions = interfaces.ContainerOptions & {
+    installers?: ((container: Container) => void)[];
+};
+export declare class HadesContainer extends Container {
+    constructor(options?: HadesContainerOptions);
     private loadConfigurationModule;
-    private bindDefaultMappedTypes;
 }

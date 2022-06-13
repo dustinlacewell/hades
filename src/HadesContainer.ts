@@ -1,43 +1,22 @@
-import { Channel, GuildChannel, GuildMember, Role, User } from 'discord.js';
-import { Container, ContainerModule, interfaces } from 'inversify';
+import { Container, ContainerModule, interfaces } from "inversify";
 import { buildProviderModule } from 'inversify-binding-decorators';
-import { EagerBinder } from 'inversify-config-injection';
-
-import CommandFactory from './commands/CommandFactory';
-import { getCommandMetas, getParserMetas } from './meta';
-import { ChannelParser, GuildChannelParser, IntegerParser, MemberParser, RoleParser, StringParser, UserParser } from './parsers';
-import Parser from './parsers/Parser';
+import { EagerBinder } from "inversify-config-injection";
 
 
-export default class HadesContainer extends Container {
-    constructor(options?: interfaces.ContainerOptions) {
-        super({ ...options, skipBaseClassChecks: true });
+export type HadesContainerOptions = interfaces.ContainerOptions & {
+    installers?: ((container: Container) => void)[];
+}
+
+export class HadesContainer extends Container {
+    constructor(options?: HadesContainerOptions) {
+        const { installers, ...containerOptions } = options || {};
+        super({ ...containerOptions, skipBaseClassChecks: true });
         this.bind(HadesContainer).toConstantValue(this);
+        this.load(buildProviderModule()); // binding-decorators support
         this.loadConfigurationModule();
-        this.loadDecoratorSupport();
-        this.bindDefaultMappedTypes();
-        this.bindDecoratedParsers();
-        this.bindCommandFactories();
-    }
-
-    private bindCommandFactories() {
-        const metas = getCommandMetas();
-        for (let meta of metas.array()) {
-            const factory = new CommandFactory(this, meta);
-            this.bind<CommandFactory>(CommandFactory)
-                .toConstantValue(factory);
+        for (const installer of installers || []) {
+            installer(this);
         }
-    }
-
-    private bindDecoratedParsers() {
-        for (let meta of getParserMetas()) {
-            this.bind(Parser).to(meta.type);
-            this.bind(meta.type).to(meta.type);
-        }
-    }
-
-    private loadDecoratorSupport() {
-        this.load(buildProviderModule());
     }
 
     private loadConfigurationModule() {
@@ -46,18 +25,5 @@ export default class HadesContainer extends Container {
         const configModule = new ContainerModule(configCallback);
         this.load(configModule);
     }
-
-    private bindDefaultMappedTypes() {
-        [
-            [String, StringParser],
-            [Number, IntegerParser],
-            [Channel, ChannelParser],
-            [User, UserParser],
-            [Role, RoleParser],
-            [GuildChannel, GuildChannelParser],
-            [GuildMember, MemberParser],
-        ].forEach(
-            pair => this.bind('MappedTypes').toConstantValue(pair)
-        );
-    }
 }
+

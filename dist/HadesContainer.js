@@ -1,42 +1,30 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
+exports.HadesContainer = void 0;
 const inversify_1 = require("inversify");
 const inversify_binding_decorators_1 = require("inversify-binding-decorators");
 const inversify_config_injection_1 = require("inversify-config-injection");
-const CommandFactory_1 = __importDefault(require("./commands/CommandFactory"));
-const meta_1 = require("./meta");
-const parsers_1 = require("./parsers");
-const Parser_1 = __importDefault(require("./parsers/Parser"));
 class HadesContainer extends inversify_1.Container {
     constructor(options) {
-        super(Object.assign(Object.assign({}, options), { skipBaseClassChecks: true }));
+        const _a = options || {}, { installers } = _a, containerOptions = __rest(_a, ["installers"]);
+        super(Object.assign(Object.assign({}, containerOptions), { skipBaseClassChecks: true }));
         this.bind(HadesContainer).toConstantValue(this);
+        this.load((0, inversify_binding_decorators_1.buildProviderModule)()); // binding-decorators support
         this.loadConfigurationModule();
-        this.loadDecoratorSupport();
-        this.bindDefaultMappedTypes();
-        this.bindDecoratedParsers();
-        this.bindCommandFactories();
-    }
-    bindCommandFactories() {
-        const metas = meta_1.getCommandMetas();
-        for (let meta of metas.array()) {
-            const factory = new CommandFactory_1.default(this, meta);
-            this.bind(CommandFactory_1.default)
-                .toConstantValue(factory);
+        for (const installer of installers || []) {
+            installer(this);
         }
-    }
-    bindDecoratedParsers() {
-        for (let meta of meta_1.getParserMetas()) {
-            this.bind(Parser_1.default).to(meta.type);
-            this.bind(meta.type).to(meta.type);
-        }
-    }
-    loadDecoratorSupport() {
-        this.load(inversify_binding_decorators_1.buildProviderModule());
     }
     loadConfigurationModule() {
         const configBinder = new inversify_config_injection_1.EagerBinder({ prefix: 'cfg' });
@@ -44,17 +32,6 @@ class HadesContainer extends inversify_1.Container {
         const configModule = new inversify_1.ContainerModule(configCallback);
         this.load(configModule);
     }
-    bindDefaultMappedTypes() {
-        [
-            [String, parsers_1.StringParser],
-            [Number, parsers_1.IntegerParser],
-            [discord_js_1.Channel, parsers_1.ChannelParser],
-            [discord_js_1.User, parsers_1.UserParser],
-            [discord_js_1.Role, parsers_1.RoleParser],
-            [discord_js_1.GuildChannel, parsers_1.GuildChannelParser],
-            [discord_js_1.GuildMember, parsers_1.MemberParser],
-        ].forEach(pair => this.bind('MappedTypes').toConstantValue(pair));
-    }
 }
-exports.default = HadesContainer;
+exports.HadesContainer = HadesContainer;
 //# sourceMappingURL=HadesContainer.js.map
