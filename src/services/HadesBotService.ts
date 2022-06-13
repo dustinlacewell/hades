@@ -11,34 +11,24 @@ import {
     User
 } from 'discord.js';
 import { inject, postConstruct } from 'inversify';
-import { TextCommandService } from './TextCommandService';
 
-import { EventService } from '../../services/EventService';
-import { HadesClient } from '../../services/HadesClient';
+import { EventService } from './EventService';
+import { HadesClient } from './HadesClient';
 
 
 export class HadesBotService {
+    @inject(HadesClient)
     client: HadesClient;
-    token: String;
-    eventService: EventService;
-    textCommandService: TextCommandService
 
-    constructor(
-        @inject(HadesClient) client: HadesClient,
-        @inject('cfg.discordToken') token: String,
-        @inject(EventService) eventService: EventService,
-        @inject(TextCommandService) textCommandService: TextCommandService
-    ) {
-        this.client = client;
-        this.token = token;
-        this.eventService = eventService;
-        this.textCommandService = textCommandService;
-    }
+    @inject('cfg.discordToken')
+    token: String;
+
+    @inject(EventService)
+    eventService: EventService;
 
     @postConstruct()
     postConstruct() {
         this.eventService.register(this);
-        this.login();
     }
 
     async login() {
@@ -85,10 +75,7 @@ export class HadesBotService {
     async onGuildUpdate(oldGuild: Guild, newGuild: Guild) { }
 
     /* messages */
-    async onMessage<T extends Message>(message: T) {
-        this.textCommandService.dispatch(message);
-    }
-
+    async onMessage<T extends Message>(message: T) { }
     async onMessageDelete(message: Message) { }
     async onMessageDeleteBulk(messages: Collection<Snowflake, Message>) { }
     async onMessageReactionAdd(reaction: MessageReaction, user: User) { }

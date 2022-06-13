@@ -1,13 +1,10 @@
 import { Channel, Collection, Emoji, Guild, GuildMember, Message, MessageReaction, Role, Snowflake, User } from 'discord.js';
-import { TextCommandService } from './TextCommandService';
-import { EventService } from '../../services/EventService';
-import { HadesClient } from '../../services/HadesClient';
+import { EventService } from './EventService';
+import { HadesClient } from './HadesClient';
 export declare class HadesBotService {
     client: HadesClient;
     token: String;
     eventService: EventService;
-    textCommandService: TextCommandService;
-    constructor(client: HadesClient, token: String, eventService: EventService, textCommandService: TextCommandService);
     postConstruct(): void;
     login(): Promise<string>;
     onDebug(...args: any[]): Promise<void>;

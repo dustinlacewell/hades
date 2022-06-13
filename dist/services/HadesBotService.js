@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -23,19 +20,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HadesBotService = void 0;
 const inversify_1 = require("inversify");
-const TextCommandService_1 = require("./TextCommandService");
-const EventService_1 = require("../../services/EventService");
-const HadesClient_1 = require("../../services/HadesClient");
-let HadesBotService = class HadesBotService {
-    constructor(client, token, eventService, textCommandService) {
-        this.client = client;
-        this.token = token;
-        this.eventService = eventService;
-        this.textCommandService = textCommandService;
-    }
+const EventService_1 = require("./EventService");
+const HadesClient_1 = require("./HadesClient");
+class HadesBotService {
     postConstruct() {
         this.eventService.register(this);
-        this.login();
     }
     login() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -126,9 +115,7 @@ let HadesBotService = class HadesBotService {
     }
     /* messages */
     onMessage(message) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.textCommandService.dispatch(message);
-        });
+        return __awaiter(this, void 0, void 0, function* () { });
     }
     onMessageDelete(message) {
         return __awaiter(this, void 0, void 0, function* () { });
@@ -178,22 +165,24 @@ let HadesBotService = class HadesBotService {
     onVoiceStateUpdate(oldMember, newMember) {
         return __awaiter(this, void 0, void 0, function* () { });
     }
-};
+}
+__decorate([
+    (0, inversify_1.inject)(HadesClient_1.HadesClient),
+    __metadata("design:type", HadesClient_1.HadesClient)
+], HadesBotService.prototype, "client", void 0);
+__decorate([
+    (0, inversify_1.inject)('cfg.discordToken'),
+    __metadata("design:type", String)
+], HadesBotService.prototype, "token", void 0);
+__decorate([
+    (0, inversify_1.inject)(EventService_1.EventService),
+    __metadata("design:type", EventService_1.EventService)
+], HadesBotService.prototype, "eventService", void 0);
 __decorate([
     (0, inversify_1.postConstruct)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], HadesBotService.prototype, "postConstruct", null);
-HadesBotService = __decorate([
-    __param(0, (0, inversify_1.inject)(HadesClient_1.HadesClient)),
-    __param(1, (0, inversify_1.inject)('cfg.discordToken')),
-    __param(2, (0, inversify_1.inject)(EventService_1.EventService)),
-    __param(3, (0, inversify_1.inject)(TextCommandService_1.TextCommandService)),
-    __metadata("design:paramtypes", [HadesClient_1.HadesClient,
-        String,
-        EventService_1.EventService,
-        TextCommandService_1.TextCommandService])
-], HadesBotService);
 exports.HadesBotService = HadesBotService;
 //# sourceMappingURL=HadesBotService.js.map

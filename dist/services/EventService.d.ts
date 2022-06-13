@@ -1,4 +1,4 @@
-import { HadesBotService } from '../text-commands/services/HadesBotService';
+import { HadesBotService } from './HadesBotService';
 import { HadesClient } from './HadesClient';
 export declare abstract class EventService {
     client: HadesClient;

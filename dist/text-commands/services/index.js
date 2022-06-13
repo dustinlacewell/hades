@@ -15,9 +15,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./DispatchService"), exports);
-__exportStar(require("./HadesBotService"), exports);
 __exportStar(require("./InferenceService"), exports);
 __exportStar(require("./ParserRegistry"), exports);
+__exportStar(require("./TextCommandBotService"), exports);
 __exportStar(require("./TextCommandHelpService"), exports);
 __exportStar(require("./TextCommandService"), exports);
 //# sourceMappingURL=index.js.map
