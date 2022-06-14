@@ -1,14 +1,14 @@
 import { inject } from "inversify";
 
-import { getArgMeta } from "../metadata";
+import { getTextArgMeta } from "../metadata";
 import { Constructable, Installer, Newable } from "../../utils";
-import { Parser } from "../parsers/Parser";
+import { TextArgParser } from "../parsers/TextArgParser";
 import { camelToDash } from "../utils";
 
 
 export type ArgInfo = {
     name?: string,
-    parser?: Newable<Parser>,
+    parser?: Newable<TextArgParser>,
     description?: string,
     validatorMethods?: Set<string>,
     validatorInstallers?: Installer[],
@@ -16,7 +16,7 @@ export type ArgInfo = {
 
 export function arg(info?: ArgInfo) {
     return (target: Constructable, key: string) => {
-        const meta = getArgMeta(target.constructor, key);
+        const meta = getTextArgMeta(target.constructor, key);
         meta.name = camelToDash(key);
         meta.property = key;
         if (info) {

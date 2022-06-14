@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { HadesBotService } from "../../services/HadesBotService";
-import { TextCommandService } from "./TextCommandService";
+import { TextCommandService } from "./TextCommandService/TextCommandService";
 export declare class TextCommandBotService extends HadesBotService {
     textCommandService: TextCommandService;
     onMessage<T extends Message>(message: T): Promise<void>;

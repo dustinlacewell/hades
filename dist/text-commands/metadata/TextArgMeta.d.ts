@@ -1,4 +1,4 @@
-import { Parser } from "../parsers";
+import { TextArgParser } from "../parsers";
 import { Constructor, Newable, Installer } from "../../utils";
 /**
  * Decorator metdata for command arguments.
@@ -8,7 +8,7 @@ export declare class TextArgMeta {
     type?: Constructor;
     property?: string;
     description?: string;
-    parserType?: Newable<Parser>;
+    parserType?: Newable<TextArgParser>;
     validatorMethods: Set<string>;
     validatorInstallers: Installer[];
 }

@@ -13,7 +13,7 @@ exports.CommandsCommand = void 0;
 const inversify_1 = require("inversify");
 const decorators_1 = require("../decorators");
 const TextCommand_1 = require("../models/TextCommand");
-const TextCommandService_1 = require("../services/TextCommandService");
+const TextCommandService_1 = require("../services/TextCommandService/TextCommandService");
 let CommandsCommand = class CommandsCommand extends TextCommand_1.TextCommand {
     execute() {
         const embeds = [

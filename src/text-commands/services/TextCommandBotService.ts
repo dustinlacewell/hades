@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { inject, injectable } from "inversify";
 import { HadesBotService } from "../../services/HadesBotService";
-import { TextCommandService } from "./TextCommandService";
+import { TextCommandService } from "./TextCommandService/TextCommandService";
 
 
 @injectable()

@@ -3,20 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.parser = void 0;
 const inversify_1 = require("inversify");
 const metadata_1 = require("../metadata");
-const Parser_1 = require("../parsers/Parser");
+const TextArgParser_1 = require("../parsers/TextArgParser");
 function parser(parserClass) {
     return (target, key) => {
         if (key) {
             const constructable = target;
-            const argMeta = (0, metadata_1.getArgMeta)(constructable.constructor, key);
+            const argMeta = (0, metadata_1.getTextArgMeta)(constructable.constructor, key);
             argMeta.parserType = parserClass;
         }
         else {
             const ctor = target;
-            if (!(ctor.prototype instanceof Parser_1.Parser)) {
+            if (!(ctor.prototype instanceof TextArgParser_1.TextArgParser)) {
                 throw new Error(`@parser decorated class ${ctor.name} doesn't extend Parser.`);
             }
-            (0, metadata_1.registerParser)(ctor);
+            (0, metadata_1.registerTextParser)(ctor);
             return (0, inversify_1.injectable)()(target);
         }
     };

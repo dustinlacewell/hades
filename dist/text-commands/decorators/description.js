@@ -7,13 +7,13 @@ function description(msg) {
         if (key) {
             // arg description
             const constructable = target;
-            const meta = (0, metadata_1.getArgMeta)(constructable.constructor, key);
+            const meta = (0, metadata_1.getTextArgMeta)(constructable.constructor, key);
             meta.description = msg;
         }
         else {
             // command description
             const ctor = target;
-            const meta = (0, metadata_1.getCommandMeta)(ctor);
+            const meta = (0, metadata_1.getTextCommandMeta)(ctor);
             meta.description = msg;
             return ctor;
         }

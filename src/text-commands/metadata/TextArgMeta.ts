@@ -1,4 +1,4 @@
-import { Parser } from "../parsers";
+import { TextArgParser } from "../parsers";
 import { Constructor, Newable, Installer } from "../../utils";
 
 /**
@@ -10,7 +10,7 @@ export class TextArgMeta {
     property?: string;
     description?: string;
 
-    parserType?: Newable<Parser>;
+    parserType?: Newable<TextArgParser>;
     validatorMethods = new Set<string>();
     validatorInstallers: Installer[] = [];
 }

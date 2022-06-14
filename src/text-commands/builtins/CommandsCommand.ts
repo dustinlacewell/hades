@@ -2,7 +2,7 @@ import { inject } from "inversify";
 
 import { command, description } from "../decorators";
 import { TextCommand } from "../models/TextCommand";
-import { TextCommandService } from "../services/TextCommandService";
+import { TextCommandService } from "../services/TextCommandService/TextCommandService";
 
 
 @command("commands")

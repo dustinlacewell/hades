@@ -1,7 +1,7 @@
-import { TextArgumentInstaller } from '../factories/TextArgumentInstaller';
+import { TextArgInstaller } from '../services/TextCommandFactory/TextArgInstaller';
 import { TextCommandContext } from '../models/TextCommandContext';
 import { parser } from '../decorators';
-import { Parser } from './Parser';
+import { TextArgParser } from './TextArgParser';
 import { TextArgError } from '../errors';
 
 
@@ -14,11 +14,11 @@ const isUppercaseString = (str: string): str is UppercaseString => {
 }
 
 @parser()
-export class UppercaseStringParser extends Parser {
+export class UppercaseStringParser extends TextArgParser {
     name = 'uppercase-string';
     description = 'An uppercase string. Use "QUOTES FOR SPACES".';
 
-    async parse(arg: TextArgumentInstaller, context: TextCommandContext) {
+    async parse(arg: TextArgInstaller, context: TextCommandContext) {
         const str = context.reader.getString();
         if (isUppercaseString(str)) {
             return str as UppercaseString;

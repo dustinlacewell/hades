@@ -1,8 +1,8 @@
 import { Constructable, Installer, Newable } from "../../utils";
-import { Parser } from "../parsers/Parser";
+import { TextArgParser } from "../parsers/TextArgParser";
 export declare type ArgInfo = {
     name?: string;
-    parser?: Newable<Parser>;
+    parser?: Newable<TextArgParser>;
     description?: string;
     validatorMethods?: Set<string>;
     validatorInstallers?: Installer[];

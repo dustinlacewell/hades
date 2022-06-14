@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextCommandBotService = void 0;
 const inversify_1 = require("inversify");
 const HadesBotService_1 = require("../../services/HadesBotService");
-const TextCommandService_1 = require("./TextCommandService");
+const TextCommandService_1 = require("./TextCommandService/TextCommandService");
 let TextCommandBotService = class TextCommandBotService extends HadesBotService_1.HadesBotService {
     onMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {

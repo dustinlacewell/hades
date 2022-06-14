@@ -1,4 +1,4 @@
-import { getArgMeta, getCommandMeta } from '../metadata';
+import { getTextArgMeta, getTextCommandMeta } from '../metadata';
 import { Constructable, Constructor } from '../../utils';
 
 
@@ -9,12 +9,12 @@ export function description(msg: string): DescriptionDecorator {
         if (key) {
             // arg description
             const constructable = target as Constructable;
-            const meta = getArgMeta(constructable.constructor, key);
+            const meta = getTextArgMeta(constructable.constructor, key);
             meta.description = msg;
         } else {
             // command description
             const ctor = target as Constructor;
-            const meta = getCommandMeta(ctor);
+            const meta = getTextCommandMeta(ctor);
             meta.description = msg;
             return ctor;
         }

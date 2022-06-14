@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 
-import { Parser } from "../parsers/Parser";
+import { TextArgParser } from "../parsers/TextArgParser";
 import { Constructor, Installer, Newable } from "../../utils";
 import { TextArgMeta } from "./TextArgMeta";
 

@@ -1,15 +1,15 @@
-import { TextArgumentInstaller } from '../factories/TextArgumentInstaller';
+import { TextArgInstaller } from '../services/TextCommandFactory/TextArgInstaller';
 import { TextCommandContext } from '../models/TextCommandContext';
 import { parser } from '../decorators';
-import { Parser } from './Parser';
+import { TextArgParser } from './TextArgParser';
 
 
 @parser()
-export class UserIdParser extends Parser {
+export class UserIdParser extends TextArgParser {
     name = 'user id';
     description = "Discord User ID. (Right-click, Copy ID)";
 
-    async parse(arg: TextArgumentInstaller, context: TextCommandContext) {
+    async parse(arg: TextArgInstaller, context: TextCommandContext) {
         return context.reader.getUserID();
     }
 }

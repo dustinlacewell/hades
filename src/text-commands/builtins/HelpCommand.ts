@@ -2,7 +2,7 @@ import { inject } from "inversify";
 import { MessageEmbed } from "discord.js";
 
 import { TextCommand } from "../models/TextCommand";
-import { TextCommandService } from "../services/TextCommandService";
+import { TextCommandService } from "../services/TextCommandService/TextCommandService";
 import { TextArgError } from "../errors/TextArgError";
 import { command, description, arg, validate } from "../decorators";
 

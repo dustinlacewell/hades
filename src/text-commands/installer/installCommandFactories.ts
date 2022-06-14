@@ -1,10 +1,10 @@
 import { Container } from "inversify";
-import { TextCommandFactory } from "../factories/TextCommandFactory";
-import { getCommandMetas } from "../metadata";
+import { TextCommandFactory } from "../services/TextCommandFactory/TextCommandFactory";
+import { getTextCommandMetas } from "../metadata";
 
 
 export const installCommandFactories = (container: Container) => {
-    const commandMetas = getCommandMetas();
+    const commandMetas = getTextCommandMetas();
     for (let meta of commandMetas.values()) {
         const factory = new TextCommandFactory(container, meta);
         container

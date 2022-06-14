@@ -14,10 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./DispatchService"), exports);
-__exportStar(require("./InferenceService"), exports);
-__exportStar(require("./ParserRegistry"), exports);
 __exportStar(require("./TextCommandBotService"), exports);
-__exportStar(require("./TextCommandHelpService"), exports);
+__exportStar(require("./TextCommandFactory"), exports);
 __exportStar(require("./TextCommandService"), exports);
 //# sourceMappingURL=index.js.map

@@ -4,9 +4,9 @@ exports.installParsers = void 0;
 const metadata_1 = require("../metadata");
 const parsers_1 = require("../parsers");
 const installParsers = (container) => {
-    const parserMetas = (0, metadata_1.getParserMetas)();
+    const parserMetas = (0, metadata_1.getTextParserMetas)();
     for (let meta of parserMetas) {
-        container.bind(parsers_1.Parser).to(meta.type);
+        container.bind(parsers_1.TextArgParser).to(meta.type);
         container.bind(meta.type).to(meta.type);
     }
 };

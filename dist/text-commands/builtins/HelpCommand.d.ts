@@ -1,5 +1,5 @@
 import { TextCommand } from "../models/TextCommand";
-import { TextCommandService } from "../services/TextCommandService";
+import { TextCommandService } from "../services/TextCommandService/TextCommandService";
 export declare class HelpCommand extends TextCommand {
     commandName: string;
     commandService: TextCommandService;

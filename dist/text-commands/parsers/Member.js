@@ -17,8 +17,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberParser = void 0;
 const decorators_1 = require("../decorators");
-const Parser_1 = require("./Parser");
-let MemberParser = class MemberParser extends Parser_1.Parser {
+const TextArgParser_1 = require("./TextArgParser");
+let MemberParser = class MemberParser extends TextArgParser_1.TextArgParser {
     constructor() {
         super(...arguments);
         this.name = 'member';

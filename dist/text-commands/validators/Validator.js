@@ -27,7 +27,7 @@ let Validator = Validator_1 = class Validator {
     }
     static check() {
         return ({ constructor }, key) => {
-            (0, metadata_1.addArgValidator)(constructor, key, (container) => {
+            (0, metadata_1.addTextArgValidator)(constructor, key, (container) => {
                 container
                     .bind(Validator_1)
                     .to(this)

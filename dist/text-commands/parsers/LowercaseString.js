@@ -17,13 +17,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LowercaseStringParser = void 0;
 const decorators_1 = require("../decorators");
-const Parser_1 = require("./Parser");
+const TextArgParser_1 = require("./TextArgParser");
 const errors_1 = require("../errors");
 const isLowercaseString = (str) => {
     // check if str is lowercase
     return str === str.toLowerCase();
 };
-let LowercaseStringParser = class LowercaseStringParser extends Parser_1.Parser {
+let LowercaseStringParser = class LowercaseStringParser extends TextArgParser_1.TextArgParser {
     constructor() {
         super(...arguments);
         this.name = 'lowercase-string';

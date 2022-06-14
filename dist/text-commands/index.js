@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./builtins"), exports);
 __exportStar(require("./decorators"), exports);
 __exportStar(require("./errors"), exports);
-__exportStar(require("./factories"), exports);
+__exportStar(require("./services/TextCommandFactory"), exports);
 __exportStar(require("./installer"), exports);
 __exportStar(require("./models"), exports);
 __exportStar(require("./parsers"), exports);

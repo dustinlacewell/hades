@@ -17,13 +17,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UppercaseStringParser = void 0;
 const decorators_1 = require("../decorators");
-const Parser_1 = require("./Parser");
+const TextArgParser_1 = require("./TextArgParser");
 const errors_1 = require("../errors");
 const isUppercaseString = (str) => {
     // check if str is uppercase
     return str === str.toUpperCase();
 };
-let UppercaseStringParser = class UppercaseStringParser extends Parser_1.Parser {
+let UppercaseStringParser = class UppercaseStringParser extends TextArgParser_1.TextArgParser {
     constructor() {
         super(...arguments);
         this.name = 'uppercase-string';

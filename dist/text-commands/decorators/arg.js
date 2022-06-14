@@ -6,7 +6,7 @@ const metadata_1 = require("../metadata");
 const utils_1 = require("../utils");
 function arg(info) {
     return (target, key) => {
-        const meta = (0, metadata_1.getArgMeta)(target.constructor, key);
+        const meta = (0, metadata_1.getTextArgMeta)(target.constructor, key);
         meta.name = (0, utils_1.camelToDash)(key);
         meta.property = key;
         if (info) {

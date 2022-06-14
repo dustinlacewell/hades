@@ -1,7 +1,7 @@
-import { TextArgumentInstaller } from '../factories/TextArgumentInstaller';
+import { TextArgInstaller } from '../services/TextCommandFactory/TextArgInstaller';
 import { TextCommandContext } from '../models/TextCommandContext';
 import { parser } from '../decorators';
-import { Parser } from './Parser';
+import { TextArgParser } from './TextArgParser';
 import { TextArgError } from '../errors';
 
 
@@ -14,11 +14,11 @@ const isLowercaseString = (str: string): str is LowercaseString => {
 }
 
 @parser()
-export class LowercaseStringParser extends Parser {
+export class LowercaseStringParser extends TextArgParser {
     name = 'lowercase-string';
     description = 'An lowercase string. Use "QUOTES FOR SPACES".';
 
-    async parse(arg: TextArgumentInstaller, context: TextCommandContext) {
+    async parse(arg: TextArgInstaller, context: TextCommandContext) {
         const str = context.reader.getString();
         if (isLowercaseString(str)) {
             return str as LowercaseString;

@@ -5,7 +5,7 @@ export * from './GuildChannel';
 export * from './Integer';
 export * from './LowercaseString';
 export * from './Member';
-export * from './Parser';
+export * from './TextArgParser';
 export * from './Role';
 export * from './RoleId';
 export * from './String';

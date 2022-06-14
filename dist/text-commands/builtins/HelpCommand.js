@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HelpCommand = void 0;
 const inversify_1 = require("inversify");
 const TextCommand_1 = require("../models/TextCommand");
-const TextCommandService_1 = require("../services/TextCommandService");
+const TextCommandService_1 = require("../services/TextCommandService/TextCommandService");
 const TextArgError_1 = require("../errors/TextArgError");
 const decorators_1 = require("../decorators");
 let HelpCommand = class HelpCommand extends TextCommand_1.TextCommand {
