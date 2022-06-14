@@ -9,12 +9,10 @@ function arg(info) {
         const meta = (0, metadata_1.getArgMeta)(target.constructor, key);
         meta.name = (0, utils_1.camelToDash)(key);
         meta.property = key;
-        meta.validatorMethods = new Set();
-        meta.validatorInstallers = [];
         if (info) {
             meta.name = info.name || (0, utils_1.camelToDash)(key);
-            meta.description = info.description;
-            meta.parserType = info.parser;
+            meta.description = info.description || info.description;
+            meta.parserType = info.parser || meta.parserType;
             meta.validatorMethods = info.validatorMethods || meta.validatorMethods;
             meta.validatorInstallers = info.validatorInstallers || meta.validatorInstallers;
         }
