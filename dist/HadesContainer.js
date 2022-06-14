@@ -15,6 +15,7 @@ exports.HadesContainer = void 0;
 const inversify_1 = require("inversify");
 const inversify_binding_decorators_1 = require("inversify-binding-decorators");
 const inversify_config_injection_1 = require("inversify-config-injection");
+const Installer_1 = require("./Installer");
 class HadesContainer extends inversify_1.Container {
     constructor(options) {
         const _a = options || {}, { installers } = _a, containerOptions = __rest(_a, ["installers"]);
@@ -23,7 +24,12 @@ class HadesContainer extends inversify_1.Container {
         this.load((0, inversify_binding_decorators_1.buildProviderModule)()); // binding-decorators support
         this.loadConfigurationModule();
         for (const installer of installers || []) {
-            installer(this);
+            if (installer instanceof Installer_1.Installer) {
+                installer.install(this);
+            }
+            else {
+                installer(this);
+            }
         }
     }
     loadConfigurationModule() {

@@ -27,7 +27,7 @@ export class TextArgParserResolver {
             return StringParser;
         }
         for (let [ctor, type] of this.types) {
-            if (ctor.toString() === fromType.toString()) {
+            if (ctor.name === fromType.toString()) {
                 return type;
             }
         }

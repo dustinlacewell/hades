@@ -1,9 +1,7 @@
 import { Collection } from "discord.js";
 
-import { TextArgParser } from "../parsers/TextArgParser";
-import { Constructor, Installer, Newable } from "../../utils";
+import { Constructor } from "../../utils";
 import { TextArgMeta } from "./TextArgMeta";
-
 
 
 export class TextCommandMeta {

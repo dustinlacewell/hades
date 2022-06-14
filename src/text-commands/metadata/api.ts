@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 import { TextArgParser } from "../parsers";
-import { Constructor, Installer, Newable } from "../../utils";
+import { Constructor, InstallerFunc, Newable } from "../../utils";
 import { TextArgParserMeta } from "./TextArgParserMeta";
 import { TextCommandMeta } from "./TextCommandMeta";
 
@@ -43,7 +43,7 @@ export function addTextValidatorMethod(target: Constructor, argName: string, met
     return meta.validatorMethods.add(methodName);
 }
 
-export function addTextArgValidator(target: Constructor, argName: string, installer: Installer) {
+export function addTextArgValidator(target: Constructor, argName: string, installer: InstallerFunc) {
     const meta = getTextArgMeta(target, argName);
     meta.validatorInstallers.push(installer);
 }

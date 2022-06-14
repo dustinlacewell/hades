@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 import { TextArgParser } from "../parsers";
-import { Constructor, Installer, Newable } from "../../utils";
+import { Constructor, InstallerFunc, Newable } from "../../utils";
 import { TextArgParserMeta } from "./TextArgParserMeta";
 import { TextCommandMeta } from "./TextCommandMeta";
 export declare function getTextCommandMetas(): Collection<Constructor, TextCommandMeta>;
@@ -8,7 +8,7 @@ export declare function setTextCommandMetas(metas: Collection<Constructor, TextC
 export declare function getTextCommandMeta(target: Constructor): TextCommandMeta;
 export declare function getTextArgMeta(target: Constructor, argName: string): import("./TextArgMeta").TextArgMeta;
 export declare function addTextValidatorMethod(target: Constructor, argName: string, methodName: string): Set<string>;
-export declare function addTextArgValidator(target: Constructor, argName: string, installer: Installer): void;
+export declare function addTextArgValidator(target: Constructor, argName: string, installer: InstallerFunc): void;
 export declare function getTextParserMetas(): Set<TextArgParserMeta>;
 export declare function setTextParserMetas(metas: Collection<string, TextArgParserMeta>): void;
 export declare function registerTextParser(target: Newable<TextArgParser>): void;

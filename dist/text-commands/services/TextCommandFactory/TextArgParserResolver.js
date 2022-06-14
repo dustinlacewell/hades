@@ -30,7 +30,7 @@ let TextArgParserResolver = TextArgParserResolver_1 = class TextArgParserResolve
             return parsers_1.StringParser;
         }
         for (let [ctor, type] of this.types) {
-            if (ctor.toString() === fromType.toString()) {
+            if (ctor.name === fromType.toString()) {
                 return type;
             }
         }

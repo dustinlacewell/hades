@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { TextArgMeta } from '../../metadata';
 import { TextArgParser } from '../../parsers';
-import { Constructor, Installer, Newable } from '../../../utils';
+import { Constructor, InstallerFunc, Newable } from '../../../utils';
 import { TextCommandContext } from '../../models/TextCommandContext';
 export declare class TextArgInstaller {
     name: string;
@@ -10,7 +10,7 @@ export declare class TextArgInstaller {
     description: string;
     parser: TextArgParser;
     parserType: Newable<TextArgParser>;
-    validatorInstallers: Installer[];
+    validatorInstallers: InstallerFunc[];
     validatorMethods: any;
     constructor(meta: TextArgMeta, parser: TextArgParser);
     install(di: Container, context: TextCommandContext): Promise<void>;

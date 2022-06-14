@@ -15,6 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./HadesContainer"), exports);
+__exportStar(require("./Installer"), exports);
 __exportStar(require("./decorators"), exports);
 __exportStar(require("./services/DiscordService"), exports);
 __exportStar(require("./services/EventService"), exports);

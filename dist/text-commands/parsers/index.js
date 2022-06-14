@@ -19,13 +19,11 @@ __exportStar(require("./ChannelId"), exports);
 __exportStar(require("./Float"), exports);
 __exportStar(require("./GuildChannel"), exports);
 __exportStar(require("./Integer"), exports);
-__exportStar(require("./LowercaseString"), exports);
 __exportStar(require("./Member"), exports);
-__exportStar(require("./TextArgParser"), exports);
 __exportStar(require("./Role"), exports);
 __exportStar(require("./RoleId"), exports);
 __exportStar(require("./String"), exports);
-__exportStar(require("./UppercaseString"), exports);
+__exportStar(require("./TextArgParser"), exports);
 __exportStar(require("./User"), exports);
 __exportStar(require("./UserId"), exports);
 //# sourceMappingURL=index.js.map

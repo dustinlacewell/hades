@@ -8,6 +8,9 @@ function arg(info) {
     return (target, key) => {
         const meta = (0, metadata_1.getTextArgMeta)(target.constructor, key);
         meta.name = (0, utils_1.camelToDash)(key);
+        // get design:type from the constructor
+        const typeInfo = Reflect.getMetadata("design:type", target, key).name;
+        meta.type = typeInfo;
         meta.property = key;
         if (info) {
             meta.name = info.name || (0, utils_1.camelToDash)(key);

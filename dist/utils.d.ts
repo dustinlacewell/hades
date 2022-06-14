@@ -5,5 +5,5 @@ export declare type Constructor = {
 export declare type Constructable = {
     constructor: any;
 };
-export declare type Installer = (di: Container) => void;
 export declare type Newable<T> = new (...args: any[]) => T;
+export declare type InstallerFunc = (container: Container) => void;

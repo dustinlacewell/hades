@@ -3,7 +3,7 @@ import { Container } from 'inversify';
 import { TextArgError } from '../../errors';
 import { TextArgMeta } from '../../metadata';
 import { TextArgParser } from '../../parsers';
-import { Constructor, Installer, Newable } from '../../../utils';
+import { Constructor, InstallerFunc, Newable } from '../../../utils';
 import { Validator } from '../../validators';
 import { TextCommandContext } from '../../models/TextCommandContext';
 
@@ -17,7 +17,7 @@ export class TextArgInstaller {
     parser: TextArgParser;
     parserType: Newable<TextArgParser>;
 
-    validatorInstallers: Installer[];
+    validatorInstallers: InstallerFunc[];
     validatorMethods: any;
 
     constructor(meta: TextArgMeta, parser: TextArgParser) {

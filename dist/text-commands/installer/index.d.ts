@@ -1,2 +1,9 @@
 import { Container } from "inversify";
-export declare const installTextCommands: (container: Container) => void;
+import { Installer } from "../../Installer";
+import { TypePair } from "./installDefaultMappedTypes";
+export { defaultMappedTypes, TypePair } from "./installDefaultMappedTypes";
+export declare class TextCommandsInstaller extends Installer {
+    private readonly mappedTypes;
+    constructor(mappedTypes?: TypePair[]);
+    install(container: Container): Promise<void>;
+}
