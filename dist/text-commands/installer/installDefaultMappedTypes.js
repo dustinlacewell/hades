@@ -11,7 +11,7 @@ const installDefaultMappedTypes = (container) => {
         [discord_js_1.User, parsers_1.UserParser],
         [discord_js_1.Role, parsers_1.RoleParser],
         [discord_js_1.GuildChannel, parsers_1.GuildChannelParser],
-        [discord_js_1.GuildMember, parsers_1.MemberParser],
+        [discord_js_1.GuildMember, parsers_1.MemberParser]
     ].forEach(pair => container.bind('MappedTypes').toConstantValue(pair));
 };
 exports.installDefaultMappedTypes = installDefaultMappedTypes;

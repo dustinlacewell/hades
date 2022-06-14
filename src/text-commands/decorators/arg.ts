@@ -18,13 +18,13 @@ export function arg(info?: ArgInfo) {
     return (target: Constructable, key: string) => {
         const meta = getArgMeta(target.constructor, key);
         meta.name = camelToDash(key);
-        meta.type = Reflect.getMetadata("design:type", target, key);
         meta.property = key;
         meta.validatorMethods = new Set<string>();
         meta.validatorInstallers = [];
         if (info) {
             meta.name = info.name || camelToDash(key);
             meta.description = info.description;
+            meta.parserType = info.parser;
             meta.validatorMethods = info.validatorMethods || meta.validatorMethods;
             meta.validatorInstallers = info.validatorInstallers || meta.validatorInstallers;
         }

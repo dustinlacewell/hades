@@ -11,7 +11,7 @@ export const installDefaultMappedTypes = (container: Container) => {
         [User, UserParser],
         [Role, RoleParser],
         [GuildChannel, GuildChannelParser],
-        [GuildMember, MemberParser],
+        [GuildMember, MemberParser]
     ].forEach(
         pair => container.bind('MappedTypes').toConstantValue(pair)
     );
