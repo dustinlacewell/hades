@@ -17,6 +17,7 @@ exports.InferenceService = void 0;
 const discord_js_1 = require("discord.js");
 const inversify_1 = require("inversify");
 const singleton_1 = require("../../decorators/singleton");
+const parsers_1 = require("../parsers");
 let InferenceService = InferenceService_1 = class InferenceService {
     constructor(types) {
         this.types = new discord_js_1.Collection();
@@ -25,6 +26,9 @@ let InferenceService = InferenceService_1 = class InferenceService {
         }
     }
     infer(fromType) {
+        if (!fromType) {
+            return parsers_1.StringParser;
+        }
         for (let [ctor, type] of this.types) {
             if (ctor.toString() === fromType.toString()) {
                 return type;

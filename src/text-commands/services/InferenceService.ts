@@ -4,6 +4,7 @@ import { multiInject } from 'inversify';
 import { singleton } from '../../decorators/singleton';
 import { Parser } from '../parsers/Parser';
 import { Constructor, Newable } from '../../utils';
+import { StringParser } from '../parsers';
 
 
 export type TypeMap = [Constructor, Newable<Parser>];
@@ -22,6 +23,9 @@ export class InferenceService {
     }
 
     infer(fromType: Constructor) {
+        if (!fromType) {
+            return StringParser;
+        }
         for (let [ctor, type] of this.types) {
             if (ctor.toString() === fromType.toString()) {
                 return type;
