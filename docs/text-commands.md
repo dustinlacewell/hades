@@ -7,6 +7,18 @@ This kind of command was typical before Discord's "Slash Commands".
 Text command support is located in the `hades/dist/text-commands` module.
 
 
+**Table of Contents**:
+
+- [Text Commands](#text-commands)
+  - [Installing Text Command Support](#installing-text-command-support)
+  - [Using the `TextCommandService`](#using-the-textcommandservice)
+  - [Writing Commands](#writing-commands)
+  - [The Command Context](#the-command-context)
+  - [Arguments](#arguments)
+    - [Argument Parsers](#argument-parsers)
+    - [Manually Parsing Arguments](#manually-parsing-arguments)
+    - [Argument Validation](#argument-validation)
+
 ## Installing Text Command Support
 
 Add text command support to your `HadesContainer`:
