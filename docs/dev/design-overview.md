@@ -4,6 +4,13 @@ All the Discord functionality in Hades is driven by Discord.js under the hood.
 
 Hades attempts to provide a dependency injection based API on top.
 
+- [Design Overview](#design-overview)
+  - [HadesContainer](#hadescontainer)
+    - [Default Services](#default-services)
+    - [Configuration Support](#configuration-support)
+    - [Additional Services](#additional-services)
+  - [HadesBotService](#hadesbotservice)
+
 ## HadesContainer
 
 The Hades core is based around a custom Inversify container called `HadesContainer`.

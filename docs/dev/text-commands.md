@@ -2,6 +2,22 @@
 
 The `text-commands` submodule implements classic "text-based parser commands". The kind typical before Discord's "slash commands" feature.
 
+- [Text Commands Design](#text-commands-design)
+  - [Overview](#overview)
+  - [Installer](#installer)
+  - [Decorators](#decorators)
+    - [Decorator Metas](#decorator-metas)
+  - [Argument Parsing](#argument-parsing)
+  - [Argument Validation](#argument-validation)
+- [Command Lifecycle](#command-lifecycle)
+  - [Bot Startup](#bot-startup)
+  - [Command Invocation](#command-invocation)
+  - [DispatchService](#dispatchservice)
+    - [TextCommandContext](#textcommandcontext)
+  - [TextCommandFactory](#textcommandfactory)
+    - [Instantiation](#instantiation)
+  - [TextCommandService](#textcommandservice)
+
 ## Overview
 
 A high-level look at `text-commands`:
