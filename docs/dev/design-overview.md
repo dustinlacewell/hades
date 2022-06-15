@@ -28,8 +28,8 @@ With a config like:
 
 ```json
 {
-    foo: {
-        bar: true
+    "foo": {
+        "bar": true
     }
 }
 ```
