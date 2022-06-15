@@ -1,13 +1,7 @@
-let
-  pkgs = import <nixpkgs> {};
-in
-pkgs.mkShell {
-  buildInputs = with pkgs; [
-    nodejs-14_x
-    yarn
-    mongodb
-    sqlite
-  ];
+{ pkgs ? import <nixpkgs> { } }:
+with pkgs;
+mkShell {
+  buildInputs = with pkgs; [ nodejs-14_x yarn mongodb sqlite ];
 
   shellHook = ''
     alias serve='npx webpack serve'
