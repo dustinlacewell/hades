@@ -91,3 +91,6 @@ Please visit our documentation for more information:
 - [Dependency Injection](./docs/di.md)
 - [Events](./docs/events.md)
 - [Text Commands](./docs/text-commands.md)
+
+
+Looking to contribute? Check out our [Contributor Documentation](./docs/dev/index.md).
