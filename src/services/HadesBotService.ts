@@ -16,13 +16,28 @@ import { EventService } from './EventService';
 import { HadesClient } from './HadesClient';
 
 
+/**
+ * A base service for building bots with Hades.
+ * 
+ * Comes with a HadesClient and EventService. The bot will automatically
+ * register with the EventService.
+ */
 export class HadesBotService {
+    /**
+     * The Discord client.
+     */
     @inject(HadesClient)
     client: HadesClient;
 
+    /**
+     * The Discord bot token.
+     */
     @inject('cfg.discordToken')
     token: String;
 
+    /**
+     * Used to receive Discord events.
+     */
     @inject(EventService)
     eventService: EventService;
 
@@ -31,6 +46,10 @@ export class HadesBotService {
         this.eventService.register(this);
     }
 
+    /**
+     * Connect to Discord.
+     * @returns Promise<string>
+     */
     async login() {
         return this.client.login(this.token.toString());
     }

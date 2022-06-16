@@ -5,14 +5,19 @@ import { HadesBotService } from './HadesBotService';
 import { HadesClient } from './HadesClient';
 
 
+/**
+ * A callback service for Discord events.
+ */
 @singleton(EventService)
 export abstract class EventService {
+
+    @inject(HadesClient)
     client: HadesClient;
 
-    constructor(@inject(HadesClient) client: HadesClient) {
-        this.client = client;
-    }
-
+    /**
+     * Register a bot for event callbacks.
+     * @param bot The bot to register callbacks for.
+     */
     register(bot: HadesBotService) {
         this.client
             .on('debug', bot.onDebug.bind(bot))
