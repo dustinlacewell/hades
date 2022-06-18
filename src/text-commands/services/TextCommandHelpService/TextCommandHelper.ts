@@ -28,8 +28,9 @@ export class TextCommandHelper {
     getArgFields() {
         return this.args.map((arg: TextArgMeta) => {
             // TODO: figure out how to get at parser for arg (ParserRegistry?)
+            const parserType = arg.parserType?.name || "string";
             const description = arg.description || /* arg.parser.description || */ "";
-            const value = `*${arg.parserType.name}*\n${description} `.trim();
+            const value = `*${parserType}*\n${description} `.trim();
             return { name: arg.name, value };
         });
     }

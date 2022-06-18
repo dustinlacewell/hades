@@ -24,9 +24,11 @@ class TextCommandHelper {
     }
     getArgFields() {
         return this.args.map((arg) => {
+            var _a;
             // TODO: figure out how to get at parser for arg (ParserRegistry?)
+            const parserType = ((_a = arg.parserType) === null || _a === void 0 ? void 0 : _a.name) || "string";
             const description = arg.description || /* arg.parser.description || */ "";
-            const value = `*${arg.parserType.name}*\n${description} `.trim();
+            const value = `*${parserType}*\n${description} `.trim();
             return { name: arg.name, value };
         });
     }
