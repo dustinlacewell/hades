@@ -49,7 +49,7 @@ export class TextCommandFactory {
 
         this.inferenceService = parentContainer.get(TextArgParserResolver);
         this.parserService = parentContainer.get(TextArgParserRegistry);
-        this.helpService = new TextCommandHelpService(this);
+        this.helpService = new TextCommandHelpService(meta);
 
         // setup arguments
         for (let [argName, argMeta] of meta.args) {

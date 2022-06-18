@@ -1,21 +1,19 @@
 import { MessageEmbed } from 'discord.js';
+import { TextCommandMeta } from '../../metadata';
 
 import { TextArgInstaller } from './TextArgInstaller';
-import { TextCommandFactory } from './TextCommandFactory';
 
 
 /**
  * Extracts help information from a command.
- * 
- * TODO: Why does this accept the TextCommandFactory?
  */
 export class TextCommandHelpService {
-    constructor(private command: TextCommandFactory) { }
+    constructor(private meta: TextCommandMeta) { }
 
-    get name() { return this.command.name.trim(); }
-    get args() { return this.command.args; }
-    get target() { return this.command.target; }
-    get description() { return this.command.description.trim(); }
+    get name() { return this.meta.name.trim(); }
+    get args() { return this.meta.args; }
+    get target() { return this.meta.target; }
+    get description() { return this.meta.description.trim(); }
 
     getArgTags() {
         return this.args.map(a => `[*${a.name}*]`);

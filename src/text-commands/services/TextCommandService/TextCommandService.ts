@@ -8,7 +8,6 @@ import { TextArgError } from '../../errors/TextArgError';
 import { singleton } from '../../../decorators/singleton';
 import { DispatchService } from './TextCommandDispatch';
 
-
 /**
  * Orchestrates parsing and executing commands.
  * 
@@ -19,7 +18,7 @@ import { DispatchService } from './TextCommandDispatch';
 export class TextCommandService {
     /** the command prefix */
     prefix: string;
-    /** ??? TODO: ??? */
+    /** TODO: what is this options field for?? */
     options: any;
     /** factories for creating command instances */
     factories: Collection<string, TextCommandFactory>;
