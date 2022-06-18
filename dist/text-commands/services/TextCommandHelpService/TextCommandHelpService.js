@@ -25,6 +25,8 @@ let TextCommandHelpService = TextCommandHelpService_1 = class TextCommandHelpSer
     getCommandsEmbed() {
         let embed = new discord_js_1.MessageEmbed();
         const undocumented = [];
+        console.log("Helper");
+        console.log(this.helpers);
         for (const helper of this.helpers.helpers) {
             if (helper.args.size > 0 || helper.description) {
                 embed = embed.addField(helper.getUsage(), helper.description);
@@ -38,7 +40,7 @@ let TextCommandHelpService = TextCommandHelpService_1 = class TextCommandHelpSer
     }
 };
 __decorate([
-    (0, inversify_1.multiInject)(TextCommandHelperRegistry_1.TextCommandHelperRegistry),
+    (0, inversify_1.inject)(TextCommandHelperRegistry_1.TextCommandHelperRegistry),
     __metadata("design:type", TextCommandHelperRegistry_1.TextCommandHelperRegistry)
 ], TextCommandHelpService.prototype, "helpers", void 0);
 TextCommandHelpService = TextCommandHelpService_1 = __decorate([

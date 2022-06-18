@@ -11,7 +11,7 @@ export class TextCommandHelper {
     get name() { return this.meta.name.trim(); }
     get args() { return this.meta.args; }
     get target() { return this.meta.target; }
-    get description() { return this.meta.description.trim(); }
+    get description() { return this.meta.description?.trim(); }
 
     getArgTags() {
         return this.args.map(a => `[*${a.name}*]`);

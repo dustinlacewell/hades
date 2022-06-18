@@ -29,13 +29,12 @@ export class TextParserService {
         @inject("PARSER_OPTIONS")
         options?: TextParserServiceOptions
     ) {
-        const { parserOptions, ...rest } = options;
         this.options = {
             ...defaults,
             ...options,
             parserOptions: {
                 ...defaults.parserOptions,
-                ...options.parserOptions,
+                ...options?.parserOptions || {},
             }
         }
     }

@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { multiInject } from "inversify";
+import { inject } from "inversify";
 import { singleton } from "../../../decorators";
 import { TextCommandHelper } from "./TextCommandHelper";
 import { TextCommandHelperRegistry } from "./TextCommandHelperRegistry";
@@ -8,7 +8,7 @@ import { TextCommandHelperRegistry } from "./TextCommandHelperRegistry";
 @singleton(TextCommandHelpService)
 export class TextCommandHelpService {
 
-    @multiInject(TextCommandHelperRegistry)
+    @inject(TextCommandHelperRegistry)
     helpers: TextCommandHelperRegistry
 
     getHelpEmbed(command: string) {
@@ -22,6 +22,9 @@ export class TextCommandHelpService {
     getCommandsEmbed() {
         let embed = new MessageEmbed()
         const undocumented: TextCommandHelper[] = []
+
+        console.log("Helper")
+        console.log(this.helpers)
 
         for (const helper of this.helpers.helpers) {
             if (helper.args.size > 0 || helper.description) {
