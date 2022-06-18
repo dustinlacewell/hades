@@ -21,18 +21,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextCommandBotService = void 0;
 const inversify_1 = require("inversify");
 const HadesBotService_1 = require("../../services/HadesBotService");
+const TextCommandHelpService_1 = require("./TextCommandHelpService");
 const TextCommandService_1 = require("./TextCommandService/TextCommandService");
+/**
+ * A base bot class with text command support.
+ */
 let TextCommandBotService = class TextCommandBotService extends HadesBotService_1.HadesBotService {
     onMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.textCommandService.dispatch(message);
+            this.commandService.dispatch(message);
         });
     }
 };
 __decorate([
     (0, inversify_1.inject)(TextCommandService_1.TextCommandService),
     __metadata("design:type", TextCommandService_1.TextCommandService)
-], TextCommandBotService.prototype, "textCommandService", void 0);
+], TextCommandBotService.prototype, "commandService", void 0);
+__decorate([
+    (0, inversify_1.inject)(TextCommandHelpService_1.TextCommandHelpService),
+    __metadata("design:type", TextCommandHelpService_1.TextCommandHelpService)
+], TextCommandBotService.prototype, "helpService", void 0);
 TextCommandBotService = __decorate([
     (0, inversify_1.injectable)()
 ], TextCommandBotService);

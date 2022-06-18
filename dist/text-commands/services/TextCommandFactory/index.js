@@ -18,5 +18,5 @@ __exportStar(require("./TextArgInstaller"), exports);
 __exportStar(require("./TextArgParserRegistry"), exports);
 __exportStar(require("./TextArgParserResolver"), exports);
 __exportStar(require("./TextCommandFactory"), exports);
-__exportStar(require("./TextCommandHelpService"), exports);
+__exportStar(require("./TextCommandFactoryRegistry"), exports);
 //# sourceMappingURL=index.js.map

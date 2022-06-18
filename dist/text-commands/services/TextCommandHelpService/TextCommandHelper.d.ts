@@ -1,11 +1,13 @@
 import { MessageEmbed } from 'discord.js';
-import { TextArgInstaller } from './TextArgInstaller';
-import { TextCommandFactory } from './TextCommandFactory';
-export declare class TextCommandHelpService {
-    private command;
-    constructor(command: TextCommandFactory);
+import { TextArgMeta, TextCommandMeta } from '../../metadata';
+/**
+ * Extracts help information from a command meta.
+ */
+export declare class TextCommandHelper {
+    private meta;
+    constructor(meta: TextCommandMeta);
     get name(): string;
-    get args(): import("@discordjs/collection").Collection<string, TextArgInstaller>;
+    get args(): import("@discordjs/collection").Collection<string, TextArgMeta>;
     get target(): import("../../..").Constructor;
     get description(): string;
     getArgTags(): string[];

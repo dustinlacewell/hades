@@ -12,6 +12,11 @@ exports.defaultMappedTypes = [
     [discord_js_1.GuildChannel, parsers_1.GuildChannelParser],
     [discord_js_1.GuildMember, parsers_1.MemberParser],
 ];
+/**
+ * Binds which Parsers to use for what argument types, by default.
+ * @param container HadesContainer to use.
+ * @param mappedTypes Type mappings.
+ */
 const installDefaultMappedTypes = (container, mappedTypes) => {
     mappedTypes.forEach(pair => {
         container.bind('MappedTypes').toConstantValue(pair);

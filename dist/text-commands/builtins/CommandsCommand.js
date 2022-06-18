@@ -13,18 +13,18 @@ exports.CommandsCommand = void 0;
 const inversify_1 = require("inversify");
 const decorators_1 = require("../decorators");
 const TextCommand_1 = require("../models/TextCommand");
-const TextCommandService_1 = require("../services/TextCommandService/TextCommandService");
+const TextCommandHelpService_1 = require("../services/TextCommandHelpService");
 let CommandsCommand = class CommandsCommand extends TextCommand_1.TextCommand {
     execute() {
         const embeds = [
-            this.commandService.commandsEmbed()
+            this.commandService.getCommandsEmbed(),
         ];
         return this.reply("all commands I know:", { embeds });
     }
 };
 __decorate([
-    (0, inversify_1.inject)(TextCommandService_1.TextCommandService),
-    __metadata("design:type", TextCommandService_1.TextCommandService)
+    (0, inversify_1.inject)(TextCommandHelpService_1.TextCommandHelpService),
+    __metadata("design:type", TextCommandHelpService_1.TextCommandHelpService)
 ], CommandsCommand.prototype, "commandService", void 0);
 CommandsCommand = __decorate([
     (0, decorators_1.command)("commands"),

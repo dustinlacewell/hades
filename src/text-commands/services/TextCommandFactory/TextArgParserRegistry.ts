@@ -1,5 +1,5 @@
 import { Collection } from 'discord.js';
-import { multiInject } from 'inversify';
+import { multiInject, postConstruct } from 'inversify';
 
 import { singleton } from '../../../decorators/singleton';
 import { TextArgParser } from '../../parsers/TextArgParser';
@@ -13,17 +13,23 @@ import { Newable } from '../../../utils';
  */
 @singleton(TextArgParserRegistry)
 export class TextArgParserRegistry {
-    parsers = new Collection<Newable<TextArgParser>, TextArgParser>();
+    map = new Collection<Newable<TextArgParser>, TextArgParser>();
 
-    constructor(
-        @multiInject(TextArgParser) parsers: TextArgParser[],
-    ) {
-        for (let parser of parsers) {
-            this.parsers.set(parser.constructor as Newable<TextArgParser>, parser);
+    @multiInject(TextArgParser)
+    parsers: TextArgParser[]
+
+    @postConstruct()
+    init() {
+        for (const parser of this.parsers) {
+            this.map.set(parser.constructor as Newable<TextArgParser>, parser);
         }
     }
 
     parserFor(parserType: Newable<TextArgParser>) {
-        return this.parsers.get(parserType);
+        return this.map.get(parserType);
+    }
+
+    find(predicate: (meta: TextArgParser) => boolean) {
+        return this.parsers.find(predicate)
     }
 }

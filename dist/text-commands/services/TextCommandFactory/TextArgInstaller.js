@@ -12,6 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextArgInstaller = void 0;
 const errors_1 = require("../../errors");
 const validators_1 = require("../../validators");
+/**
+ * Binds argument values in a container.
+ *
+ * TextArgInstaller is used by the TextCommandFactory to inject the user-provided
+ * value for a single command argument.
+ */
 class TextArgInstaller {
     constructor(meta, parser) {
         this.name = meta.name;
@@ -23,6 +29,11 @@ class TextArgInstaller {
         this.validatorMethods = meta.validatorMethods;
         this.validatorInstallers = meta.validatorInstallers;
     }
+    /**
+     * Install the user's value for a given argument into the container.
+     * @param di A container to bind the argument value in
+     * @param context The context for the command invocation
+     */
     install(di, context) {
         return __awaiter(this, void 0, void 0, function* () {
             // parse value

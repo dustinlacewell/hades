@@ -12,12 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HelpCommand = void 0;
 const inversify_1 = require("inversify");
 const TextCommand_1 = require("../models/TextCommand");
-const TextCommandService_1 = require("../services/TextCommandService/TextCommandService");
 const TextArgError_1 = require("../errors/TextArgError");
 const decorators_1 = require("../decorators");
+const TextCommandHelpService_1 = require("../services/TextCommandHelpService");
 let HelpCommand = class HelpCommand extends TextCommand_1.TextCommand {
     validateCommandName() {
-        this.helpEmbed = this.commandService.helpFor(this.commandName);
+        this.helpEmbed = this.helpService.getHelpEmbed(this.commandName);
         if (!this.helpEmbed) {
             throw new TextArgError_1.TextArgError(`Couldn't find a "${this.commandName}" command. :weary:`);
         }
@@ -32,9 +32,9 @@ __decorate([
     __metadata("design:type", String)
 ], HelpCommand.prototype, "commandName", void 0);
 __decorate([
-    (0, inversify_1.inject)(TextCommandService_1.TextCommandService),
-    __metadata("design:type", TextCommandService_1.TextCommandService)
-], HelpCommand.prototype, "commandService", void 0);
+    (0, inversify_1.inject)(TextCommandHelpService_1.TextCommandHelpService),
+    __metadata("design:type", TextCommandHelpService_1.TextCommandHelpService)
+], HelpCommand.prototype, "helpService", void 0);
 __decorate([
     (0, decorators_1.validate)('commandName'),
     __metadata("design:type", Function),

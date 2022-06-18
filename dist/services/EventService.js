@@ -8,19 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var EventService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventService = void 0;
 const inversify_1 = require("inversify");
 const decorators_1 = require("../decorators");
 const HadesClient_1 = require("./HadesClient");
+/**
+ * A callback service for Discord events.
+ */
 let EventService = EventService_1 = class EventService {
-    constructor(client) {
-        this.client = client;
-    }
+    /**
+     * Register a bot for event callbacks.
+     * @param bot The bot to register callbacks for.
+     */
     register(bot) {
         this.client
             .on('debug', bot.onDebug.bind(bot))
@@ -67,10 +68,12 @@ let EventService = EventService_1 = class EventService {
             .on('voiceStateUpdate', bot.onVoiceStateUpdate.bind(bot));
     }
 };
+__decorate([
+    (0, inversify_1.inject)(HadesClient_1.HadesClient),
+    __metadata("design:type", HadesClient_1.HadesClient)
+], EventService.prototype, "client", void 0);
 EventService = EventService_1 = __decorate([
-    (0, decorators_1.singleton)(EventService_1),
-    __param(0, (0, inversify_1.inject)(HadesClient_1.HadesClient)),
-    __metadata("design:paramtypes", [HadesClient_1.HadesClient])
+    (0, decorators_1.singleton)(EventService_1)
 ], EventService);
 exports.EventService = EventService;
 //# sourceMappingURL=EventService.js.map

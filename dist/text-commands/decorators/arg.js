@@ -4,6 +4,10 @@ exports.arg = void 0;
 const inversify_1 = require("inversify");
 const metadata_1 = require("../metadata");
 const utils_1 = require("../utils");
+/**
+ * Marks the field of a TextCommand as an argument.
+ * @param info Options for the decorator.
+ */
 function arg(info) {
     return (target, key) => {
         const meta = (0, metadata_1.getTextArgMeta)(target.constructor, key);
@@ -19,6 +23,7 @@ function arg(info) {
             meta.validatorMethods = info.validatorMethods || meta.validatorMethods;
             meta.validatorInstallers = info.validatorInstallers || meta.validatorInstallers;
         }
+        // decorate the field with @inject(key)
         (0, inversify_1.inject)(key)(target, key);
     };
 }

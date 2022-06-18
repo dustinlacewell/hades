@@ -3,13 +3,10 @@ import { Container } from 'inversify';
 
 import { TextCommandMeta } from '../../metadata/TextCommandMeta';
 
-import { Constructor } from '../../../utils';
-
 import { TextArgInstaller } from './TextArgInstaller';
 import { TextCommandContext } from '../../models/TextCommandContext';
 import { TextArgParserResolver } from './TextArgParserResolver';
 import { TextArgParserRegistry } from './TextArgParserRegistry';
-import { TextCommandHelpService } from './TextCommandHelpService';
 
 
 /**
@@ -22,43 +19,33 @@ import { TextCommandHelpService } from './TextCommandHelpService';
 export class TextCommandFactory {
     /** container to derive sub-containers from */
     parentContainer: Container;
+    /** the meta of the associated command */
+    meta: TextCommandMeta;
+
     /** service for looking up parsers based on argument type */
     inferenceService: TextArgParserResolver;
     /** service for easy lookup of parsers */
     parserService: TextArgParserRegistry;
-    /** service for extracting help info from commands */
-    helpService: TextCommandHelpService;
-
-    /** name of the associated command */
-    name: string;
-    /** constructor of the associated command class */
-    target: Constructor;
-    /** description of the associated command */
-    description: string;
     /** arguments of the associated command */
-    args = new Collection<string, TextArgInstaller>();
+    argInstallers = new Collection<string, TextArgInstaller>();
 
     constructor(
         parentContainer: Container,
         meta: TextCommandMeta,
     ) {
         this.parentContainer = parentContainer;
-        this.name = meta.name;
-        this.target = meta.target;
-        this.description = meta.description;
+        this.meta = meta;
 
         this.inferenceService = parentContainer.get(TextArgParserResolver);
         this.parserService = parentContainer.get(TextArgParserRegistry);
-        this.helpService = new TextCommandHelpService(meta);
 
         // setup arguments
         for (let [argName, argMeta] of meta.args) {
             const parserType = argMeta.parserType || this.inferenceService.infer(argMeta.type);
             const parser = this.parserService.parserFor(parserType);
             const arg = new TextArgInstaller(argMeta, parser);
-            this.args.set(argName, arg);
+            this.argInstallers.set(argName, arg);
         }
-
     }
 
     /**
@@ -67,7 +54,7 @@ export class TextCommandFactory {
      * @param context The command invocation context.
      */
     async installArguments(container: Container, context: TextCommandContext) {
-        for (let [_, arg] of this.args) {
+        for (let [_, arg] of this.argInstallers) {
             await arg.install(container, context);
         }
     }
@@ -77,7 +64,7 @@ export class TextCommandFactory {
      * @param inst Command instance.
      */
     async runMethodValidators(inst: any) {
-        for (let [_, arg] of this.args) {
+        for (let [_, arg] of this.argInstallers) {
             for (let methodName of arg.validatorMethods) {
                 const callable = inst[methodName];
                 if (callable) {
@@ -93,9 +80,12 @@ export class TextCommandFactory {
      * @returns A sub-container.
      */
     createSubContainer(context: TextCommandContext) {
-        const di = new Container({ skipBaseClassChecks: true });
-        di.bind(this.target).to(this.target);
+        const di = this.parentContainer.createChild({ skipBaseClassChecks: true })
+        // bind the command class
+        di.bind(this.meta.target).toSelf();
+        // bind the invocation context
         di.bind<TextCommandContext>("TextCommandContext").toConstantValue(context);
+        // connect the containers
         di.parent = this.parentContainer;
         return di;
     }
@@ -113,7 +103,7 @@ export class TextCommandFactory {
         await this.installArguments(subContainer, context);
 
         // resolve command instance
-        const inst = subContainer.get(this.target);
+        const inst = subContainer.get(this.meta.target);
 
         // run instance-method validators
         await this.runMethodValidators(inst);

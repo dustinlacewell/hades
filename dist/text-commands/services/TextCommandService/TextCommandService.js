@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -23,29 +20,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var TextCommandService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextCommandService = void 0;
-const discord_js_1 = require("discord.js");
 const inversify_1 = require("inversify");
-const TextCommandFactory_1 = require("../TextCommandFactory/TextCommandFactory");
 const TextArgError_1 = require("../../errors/TextArgError");
 const singleton_1 = require("../../../decorators/singleton");
-const TextCommandDispatch_1 = require("./TextCommandDispatch");
+const TextParserService_1 = require("./TextParserService");
+const TextCommandFactoryRegistry_1 = require("../TextCommandFactory/TextCommandFactoryRegistry");
+const TextCommandHelpService_1 = require("../TextCommandHelpService/TextCommandHelpService");
+/**
+ * Orchestrates parsing and executing commands.
+ *
+ * TODO: Actually implement sensible command prefix support.
+ *
+ */
 let TextCommandService = TextCommandService_1 = class TextCommandService {
-    constructor(dispatchService, factories) {
-        // store command factories
-        this.factories = new discord_js_1.Collection();
-        for (let factory of factories) {
-            const name = factory.name;
-            this.factories.set(name, factory);
-        }
-        // register with dispatch service
-        this.dispatchService = dispatchService;
-        this.dispatchService.register(ctx => {
-            this.execute(ctx);
-        });
-    }
     execute(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
-            const factory = this.factories.get(ctx.command);
+            const factory = this.factories.factoryFor(ctx.command);
             if (factory) {
                 try {
                     const command = yield factory.create(ctx);
@@ -56,7 +46,7 @@ let TextCommandService = TextCommandService_1 = class TextCommandService {
                         if (e.showHelp) {
                             ctx.msg.reply({
                                 content: e.message,
-                                embeds: [this.helpFor(ctx.command)]
+                                embeds: [this.help.getHelpEmbed(ctx.command)]
                             });
                         }
                         else {
@@ -72,32 +62,28 @@ let TextCommandService = TextCommandService_1 = class TextCommandService {
         });
     }
     dispatch(msg) {
-        this.dispatchService.dispatch(msg);
-    }
-    helpFor(commandName) {
-        const factory = this.factories.get(commandName);
-        if (factory) {
-            return factory.helpService.getHelpEmbed();
+        const parsedMessage = this.parserService.parse(msg);
+        if (parsedMessage) {
+            this.execute(parsedMessage);
         }
     }
-    commandsEmbed() {
-        const factories = Array.from(this.factories.values());
-        let embed = new discord_js_1.MessageEmbed();
-        let documentedFactories = factories.filter(f => f.args.size > 0 || f.description);
-        let undocumentedFactories = factories.filter(f => documentedFactories.indexOf(f) == -1);
-        documentedFactories.forEach(f => {
-            const desc = f.description === undefined ? "*No description.*" : f.description;
-            embed = embed.addField(f.helpService.getUsage(), desc);
-        });
-        embed = embed.addField("Other commands:", undocumentedFactories.map(f => f.name).join(", "));
-        return embed;
-    }
 };
+__decorate([
+    (0, inversify_1.inject)(TextParserService_1.TextParserService),
+    __metadata("design:type", TextParserService_1.TextParserService
+    /** factories for creating command instances */
+    )
+], TextCommandService.prototype, "parserService", void 0);
+__decorate([
+    (0, inversify_1.inject)(TextCommandFactoryRegistry_1.TextCommandFactoryRegistry),
+    __metadata("design:type", TextCommandFactoryRegistry_1.TextCommandFactoryRegistry)
+], TextCommandService.prototype, "factories", void 0);
+__decorate([
+    (0, inversify_1.inject)(TextCommandHelpService_1.TextCommandHelpService),
+    __metadata("design:type", TextCommandHelpService_1.TextCommandHelpService)
+], TextCommandService.prototype, "help", void 0);
 TextCommandService = TextCommandService_1 = __decorate([
-    (0, singleton_1.singleton)(TextCommandService_1),
-    __param(0, (0, inversify_1.inject)(TextCommandDispatch_1.DispatchService)),
-    __param(1, (0, inversify_1.multiInject)(TextCommandFactory_1.TextCommandFactory)),
-    __metadata("design:paramtypes", [TextCommandDispatch_1.DispatchService, Array])
+    (0, singleton_1.singleton)(TextCommandService_1)
 ], TextCommandService);
 exports.TextCommandService = TextCommandService;
 //# sourceMappingURL=TextCommandService.js.map

@@ -11,39 +11,51 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextCommandFactory = void 0;
 const discord_js_1 = require("discord.js");
-const inversify_1 = require("inversify");
 const TextArgInstaller_1 = require("./TextArgInstaller");
 const TextArgParserResolver_1 = require("./TextArgParserResolver");
 const TextArgParserRegistry_1 = require("./TextArgParserRegistry");
-const TextCommandHelpService_1 = require("./TextCommandHelpService");
+/**
+ * Instantiates commands on invocation.
+ *
+ * Ever command class is associated with its own TextCommandFactory. On
+ * invocation of that command, the factory will do what's necessary to
+ * create an instance of that command class suitable for execution.
+ */
 class TextCommandFactory {
     constructor(parentContainer, meta) {
-        this.args = new discord_js_1.Collection();
+        /** arguments of the associated command */
+        this.argInstallers = new discord_js_1.Collection();
         this.parentContainer = parentContainer;
-        this.name = meta.name;
-        this.target = meta.target;
-        this.description = meta.description;
+        this.meta = meta;
         this.inferenceService = parentContainer.get(TextArgParserResolver_1.TextArgParserResolver);
         this.parserService = parentContainer.get(TextArgParserRegistry_1.TextArgParserRegistry);
-        this.helpService = new TextCommandHelpService_1.TextCommandHelpService(this);
         // setup arguments
         for (let [argName, argMeta] of meta.args) {
             const parserType = argMeta.parserType || this.inferenceService.infer(argMeta.type);
             const parser = this.parserService.parserFor(parserType);
             const arg = new TextArgInstaller_1.TextArgInstaller(argMeta, parser);
-            this.args.set(argName, arg);
+            this.argInstallers.set(argName, arg);
         }
     }
+    /**
+     * Parse and install argument values into a container.
+     * @param container Container to install into.
+     * @param context The command invocation context.
+     */
     installArguments(container, context) {
         return __awaiter(this, void 0, void 0, function* () {
-            for (let [_, arg] of this.args) {
+            for (let [_, arg] of this.argInstallers) {
                 yield arg.install(container, context);
             }
         });
     }
+    /**
+     * Invoke validator methods on the given command instance.
+     * @param inst Command instance.
+     */
     runMethodValidators(inst) {
         return __awaiter(this, void 0, void 0, function* () {
-            for (let [_, arg] of this.args) {
+            for (let [_, arg] of this.argInstallers) {
                 for (let methodName of arg.validatorMethods) {
                     const callable = inst[methodName];
                     if (callable) {
@@ -53,13 +65,26 @@ class TextCommandFactory {
             }
         });
     }
+    /**
+     * Create a sub-container for resolving the command instance from.
+     * @param context The parent container.
+     * @returns A sub-container.
+     */
     createSubContainer(context) {
-        const di = new inversify_1.Container({ skipBaseClassChecks: true });
-        di.bind(this.target).to(this.target);
+        const di = this.parentContainer.createChild({ skipBaseClassChecks: true });
+        // bind the command class
+        di.bind(this.meta.target).toSelf();
+        // bind the invocation context
         di.bind("TextCommandContext").toConstantValue(context);
+        // connect the containers
         di.parent = this.parentContainer;
         return di;
     }
+    /**
+     * Create an instance of the invoked command.
+     * @param context A command invocation context.
+     * @returns A command instance.
+     */
     create(context) {
         return __awaiter(this, void 0, void 0, function* () {
             // subcontainer config
@@ -67,7 +92,7 @@ class TextCommandFactory {
             // parse, validate and bind argument values
             yield this.installArguments(subContainer, context);
             // resolve command instance
-            const inst = subContainer.get(this.target);
+            const inst = subContainer.get(this.meta.target);
             // run instance-method validators
             yield this.runMethodValidators(inst);
             return inst;

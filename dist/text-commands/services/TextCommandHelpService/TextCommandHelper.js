@@ -1,15 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TextCommandHelpService = void 0;
+exports.TextCommandHelper = void 0;
 const discord_js_1 = require("discord.js");
-class TextCommandHelpService {
-    constructor(command) {
-        this.command = command;
+/**
+ * Extracts help information from a command meta.
+ */
+class TextCommandHelper {
+    constructor(meta) {
+        this.meta = meta;
     }
-    get name() { return this.command.name.trim(); }
-    get args() { return this.command.args; }
-    get target() { return this.command.target; }
-    get description() { return this.command.description.trim(); }
+    get name() { return this.meta.name.trim(); }
+    get args() { return this.meta.args; }
+    get target() { return this.meta.target; }
+    get description() { return this.meta.description.trim(); }
     getArgTags() {
         return this.args.map(a => `[*${a.name}*]`);
     }
@@ -21,8 +24,9 @@ class TextCommandHelpService {
     }
     getArgFields() {
         return this.args.map((arg) => {
-            const description = arg.description || arg.parser.description || "";
-            const value = `*${arg.parser.name}*\n${description} `.trim();
+            // TODO: figure out how to get at parser for arg (ParserRegistry?)
+            const description = arg.description || /* arg.parser.description || */ "";
+            const value = `*${arg.parserType.name}*\n${description} `.trim();
             return { name: arg.name, value };
         });
     }
@@ -37,5 +41,5 @@ class TextCommandHelpService {
         return embed;
     }
 }
-exports.TextCommandHelpService = TextCommandHelpService;
-//# sourceMappingURL=TextCommandHelpService.js.map
+exports.TextCommandHelper = TextCommandHelper;
+//# sourceMappingURL=TextCommandHelper.js.map

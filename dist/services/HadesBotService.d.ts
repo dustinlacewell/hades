@@ -1,11 +1,30 @@
 import { Channel, Collection, Emoji, Guild, GuildMember, Message, MessageReaction, Role, Snowflake, User } from 'discord.js';
 import { EventService } from './EventService';
 import { HadesClient } from './HadesClient';
+/**
+ * A base service for building bots with Hades.
+ *
+ * Comes with a HadesClient and EventService. The bot will automatically
+ * register with the EventService.
+ */
 export declare class HadesBotService {
+    /**
+     * The Discord client.
+     */
     client: HadesClient;
+    /**
+     * The Discord bot token.
+     */
     token: String;
+    /**
+     * Used to receive Discord events.
+     */
     eventService: EventService;
     postConstruct(): void;
+    /**
+     * Connect to Discord.
+     * @returns Promise<string>
+     */
     login(): Promise<string>;
     onDebug(...args: any[]): Promise<void>;
     onError(...args: any[]): Promise<void>;

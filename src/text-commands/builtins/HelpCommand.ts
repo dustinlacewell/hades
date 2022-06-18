@@ -2,9 +2,9 @@ import { inject } from "inversify";
 import { MessageEmbed } from "discord.js";
 
 import { TextCommand } from "../models/TextCommand";
-import { TextCommandService } from "../services/TextCommandService/TextCommandService";
 import { TextArgError } from "../errors/TextArgError";
 import { command, description, arg, validate } from "../decorators";
+import { TextCommandHelpService } from "../services/TextCommandHelpService";
 
 
 @command("help")
@@ -16,13 +16,15 @@ export class HelpCommand extends TextCommand {
     @description("Name of the command.")
     commandName: string;
 
-    @inject(TextCommandService) commandService: TextCommandService;
+    @inject(TextCommandHelpService)
+    helpService: TextCommandHelpService;
 
     private helpEmbed: MessageEmbed;
 
     @validate('commandName')
     validateCommandName() {
-        this.helpEmbed = this.commandService.helpFor(this.commandName);
+        this.helpEmbed = this.helpService.getHelpEmbed(this.commandName);
+
         if (!this.helpEmbed) {
             throw new TextArgError(`Couldn't find a "${this.commandName}" command. :weary:`);
         }

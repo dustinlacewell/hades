@@ -3,6 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.installParsers = void 0;
 const metadata_1 = require("../metadata");
 const parsers_1 = require("../parsers");
+/**
+ * Binds all @parser classes.
+ * @param container HadesContainer to use.
+ */
 const installParsers = (container) => {
     const parserMetas = (0, metadata_1.getTextParserMetas)();
     for (let meta of parserMetas) {

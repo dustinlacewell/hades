@@ -16,6 +16,9 @@ const inversify_1 = require("inversify");
 const inversify_binding_decorators_1 = require("inversify-binding-decorators");
 const inversify_config_injection_1 = require("inversify-config-injection");
 const Installer_1 = require("./Installer");
+/**
+ * An Inversify container for building bots with Hades.
+ */
 class HadesContainer extends inversify_1.Container {
     constructor(options) {
         const _a = options || {}, { installers } = _a, containerOptions = __rest(_a, ["installers"]);
@@ -32,6 +35,9 @@ class HadesContainer extends inversify_1.Container {
             }
         }
     }
+    /**
+     * Enables inverisfy-config-injection support.
+     */
     loadConfigurationModule() {
         const configBinder = new inversify_config_injection_1.EagerBinder({ prefix: 'cfg' });
         const configCallback = configBinder.getModuleFunction();

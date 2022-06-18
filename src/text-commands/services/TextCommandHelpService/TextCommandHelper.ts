@@ -1,13 +1,11 @@
 import { MessageEmbed } from 'discord.js';
-import { TextCommandMeta } from '../../metadata';
-
-import { TextArgInstaller } from './TextArgInstaller';
+import { TextArgMeta, TextCommandMeta } from '../../metadata';
 
 
 /**
- * Extracts help information from a command.
+ * Extracts help information from a command meta.
  */
-export class TextCommandHelpService {
+export class TextCommandHelper {
     constructor(private meta: TextCommandMeta) { }
 
     get name() { return this.meta.name.trim(); }
@@ -28,14 +26,15 @@ export class TextCommandHelpService {
     }
 
     getArgFields() {
-        return this.args.map((arg: TextArgInstaller) => {
-            const description = arg.description || arg.parser.description || "";
-            const value = `*${arg.parser.name}*\n${description} `.trim();
+        return this.args.map((arg: TextArgMeta) => {
+            // TODO: figure out how to get at parser for arg (ParserRegistry?)
+            const description = arg.description || /* arg.parser.description || */ "";
+            const value = `*${arg.parserType.name}*\n${description} `.trim();
             return { name: arg.name, value };
         });
     }
 
-    getHelpEmbed() {
+    public getHelpEmbed() {
         let desc = this.getUsage()
 
         if (this.description) {

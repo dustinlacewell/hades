@@ -1,6 +1,6 @@
 import { TextCommand } from "../models/TextCommand";
-import { TextCommandService } from "../services/TextCommandService/TextCommandService";
+import { TextCommandHelpService } from "../services/TextCommandHelpService";
 export declare class CommandsCommand extends TextCommand {
-    commandService: TextCommandService;
+    commandService: TextCommandHelpService;
     execute(): Promise<import("discord.js").Message<boolean>>;
 }

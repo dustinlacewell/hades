@@ -1,2 +1,2 @@
-export * from './TextCommandDispatch';
 export * from './TextCommandService';
+export * from './TextParserService';

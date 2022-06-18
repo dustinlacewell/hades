@@ -1,6 +1,6 @@
 import { Container } from "inversify";
 import { Installer } from "../../Installer";
-import { installCommandFactories } from "./installCommandFactories";
+import { installCommands } from "./installCommands";
 import { defaultMappedTypes, installDefaultMappedTypes, TypePair } from "./installDefaultMappedTypes";
 import { installParsers } from "./installParsers";
 
@@ -20,6 +20,6 @@ export class TextCommandsInstaller extends Installer {
     async install(container: Container) {
         installDefaultMappedTypes(container, this.mappedTypes);
         installParsers(container);
-        installCommandFactories(container);
+        installCommands(container);
     }
 }

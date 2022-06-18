@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.description = void 0;
 const metadata_1 = require("../metadata");
+/**
+ * Sets the description on a @command or @arg decorated target.
+ * @param msg The description.
+ */
 function description(msg) {
     function DD(target, key) {
         if (key) {

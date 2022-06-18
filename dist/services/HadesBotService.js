@@ -22,10 +22,20 @@ exports.HadesBotService = void 0;
 const inversify_1 = require("inversify");
 const EventService_1 = require("./EventService");
 const HadesClient_1 = require("./HadesClient");
+/**
+ * A base service for building bots with Hades.
+ *
+ * Comes with a HadesClient and EventService. The bot will automatically
+ * register with the EventService.
+ */
 class HadesBotService {
     postConstruct() {
         this.eventService.register(this);
     }
+    /**
+     * Connect to Discord.
+     * @returns Promise<string>
+     */
     login() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.client.login(this.token.toString());

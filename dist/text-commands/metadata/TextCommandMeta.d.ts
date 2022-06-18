@@ -1,6 +1,9 @@
 import { Collection } from "discord.js";
 import { Constructor } from "../../utils";
 import { TextArgMeta } from "./TextArgMeta";
+/**
+ * Decorator metadata for @command
+ */
 export declare class TextCommandMeta {
     name: string;
     target: Constructor;

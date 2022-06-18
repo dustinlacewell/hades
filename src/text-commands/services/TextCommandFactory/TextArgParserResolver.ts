@@ -1,5 +1,5 @@
 import { Collection } from 'discord.js';
-import { multiInject } from 'inversify';
+import { multiInject, postConstruct } from 'inversify';
 
 import { singleton } from '../../../decorators/singleton';
 import { TextArgParser } from '../../parsers/TextArgParser';
@@ -15,15 +15,14 @@ export type TypeMap = [Constructor, Newable<TextArgParser>];
  */
 @singleton(TextArgParserResolver)
 export class TextArgParserResolver {
+    @multiInject('MappedTypes')
+    protected types: TypeMap[]
 
-    private types = new Collection<Constructor, Newable<TextArgParser>>();
+    private map = new Collection<Constructor, Newable<TextArgParser>>();
 
-    constructor(
-        @multiInject('MappedTypes') types: TypeMap[],
-    ) {
-        for (let [from, to] of types) {
-            this.types.set(from, to);
-        }
+    @postConstruct()
+    init() {
+        this.types.forEach(([from, to]) => this.map.set(from, to))
     }
 
     /**
@@ -35,7 +34,7 @@ export class TextArgParserResolver {
         if (!fromType) {
             return StringParser;
         }
-        for (let [ctor, type] of this.types) {
+        for (let [ctor, type] of this.map) {
             if (ctor.name === fromType.toString()) {
                 return type;
             }

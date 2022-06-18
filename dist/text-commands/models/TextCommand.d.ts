@@ -1,9 +1,15 @@
 import { AwaitReactionsOptions, CollectorFilter, MessageEditOptions, ReactionCollectorOptions, MessageEmbed, Message, EmojiIdentifierResolvable, MessageReaction, User, ReplyMessageOptions } from "discord.js";
 import { DiscordService } from "../../services/DiscordService";
 import { TextCommandContext } from "./TextCommandContext";
+/**
+ * Base command class.
+ */
 export declare abstract class TextCommand {
+    /** information on the current command invocation */
     context: TextCommandContext;
+    /** service for getting data from discord */
     discord: DiscordService;
+    /** main command logic handler */
     abstract execute(): Promise<any>;
     get activity(): import("discord.js").MessageActivity;
     get application(): string;

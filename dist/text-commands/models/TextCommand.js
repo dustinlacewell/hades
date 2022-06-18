@@ -13,6 +13,9 @@ exports.TextCommand = void 0;
 const inversify_1 = require("inversify");
 const DiscordService_1 = require("../../services/DiscordService");
 const TextCommandContext_1 = require("./TextCommandContext");
+/**
+ * Base command class.
+ */
 let TextCommand = class TextCommand {
     get activity() { return this.msg.activity; }
     get application() { return this.msg.applicationId; }

@@ -1,8 +1,8 @@
 import { TextCommand } from "../models/TextCommand";
-import { TextCommandService } from "../services/TextCommandService/TextCommandService";
+import { TextCommandHelpService } from "../services/TextCommandHelpService";
 export declare class HelpCommand extends TextCommand {
     commandName: string;
-    commandService: TextCommandService;
+    helpService: TextCommandHelpService;
     private helpEmbed;
     validateCommandName(): void;
     execute(): Promise<import("discord.js").Message<boolean>>;

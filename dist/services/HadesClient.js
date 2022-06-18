@@ -14,6 +14,9 @@ exports.HadesClient = void 0;
 const v10_1 = require("discord-api-types/v10");
 const discord_js_1 = require("discord.js");
 const decorators_1 = require("../decorators");
+/**
+ * The base Discord client class.
+ */
 let HadesClient = HadesClient_1 = class HadesClient extends discord_js_1.Client {
     constructor() {
         super({

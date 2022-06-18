@@ -19,6 +19,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validator = void 0;
 const inversify_1 = require("inversify");
 const metadata_1 = require("../metadata");
+/**
+ * Base class for reusable argument validators.
+ */
 let Validator = Validator_1 = class Validator {
     validate(arg, ctx, value) {
         return __awaiter(this, void 0, void 0, function* () {

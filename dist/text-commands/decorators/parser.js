@@ -4,6 +4,10 @@ exports.parser = void 0;
 const inversify_1 = require("inversify");
 const metadata_1 = require("../metadata");
 const TextArgParser_1 = require("../parsers/TextArgParser");
+/**
+ * Sets the Parser to use for an argument.
+ * @param parserClass The Parser to use.
+ */
 function parser(parserClass) {
     return (target, key) => {
         if (key) {

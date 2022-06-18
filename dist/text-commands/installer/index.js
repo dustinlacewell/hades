@@ -11,11 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextCommandsInstaller = exports.defaultMappedTypes = void 0;
 const Installer_1 = require("../../Installer");
-const installCommandFactories_1 = require("./installCommandFactories");
+const installCommands_1 = require("./installCommands");
 const installDefaultMappedTypes_1 = require("./installDefaultMappedTypes");
 const installParsers_1 = require("./installParsers");
 var installDefaultMappedTypes_2 = require("./installDefaultMappedTypes");
 Object.defineProperty(exports, "defaultMappedTypes", { enumerable: true, get: function () { return installDefaultMappedTypes_2.defaultMappedTypes; } });
+/**
+ * Installs text command support in HadesContainer.
+ */
 class TextCommandsInstaller extends Installer_1.Installer {
     constructor(mappedTypes = installDefaultMappedTypes_1.defaultMappedTypes) {
         super();
@@ -25,7 +28,7 @@ class TextCommandsInstaller extends Installer_1.Installer {
         return __awaiter(this, void 0, void 0, function* () {
             (0, installDefaultMappedTypes_1.installDefaultMappedTypes)(container, this.mappedTypes);
             (0, installParsers_1.installParsers)(container);
-            (0, installCommandFactories_1.installCommandFactories)(container);
+            (0, installCommands_1.installCommands)(container);
         });
     }
 }

@@ -1,12 +1,13 @@
-import { Collection, Message, MessageEmbed } from 'discord.js';
-import { inject, multiInject } from 'inversify';
+import { Message, MessageEmbed } from 'discord.js';
+import { inject } from 'inversify';
 
 import { TextCommandContext } from '../../models/TextCommandContext';
-import { TextCommandFactory } from '../TextCommandFactory/TextCommandFactory';
 import { TextArgError } from '../../errors/TextArgError';
 
 import { singleton } from '../../../decorators/singleton';
-import { DispatchService } from './TextCommandDispatch';
+import { TextParserService } from './TextParserService';
+import { TextCommandFactoryRegistry } from '../TextCommandFactory/TextCommandFactoryRegistry';
+import { TextCommandHelpService } from '../TextCommandHelpService/TextCommandHelpService';
 
 /**
  * Orchestrates parsing and executing commands.
@@ -18,33 +19,20 @@ import { DispatchService } from './TextCommandDispatch';
 export class TextCommandService {
     /** the command prefix */
     prefix: string;
-    /** TODO: what is this options field for?? */
-    options: any;
+
+    /** service for parsing incoming messages */
+    @inject(TextParserService)
+    parserService: TextParserService
+
     /** factories for creating command instances */
-    factories: Collection<string, TextCommandFactory>;
-    /** service for dispatching commands to listeners */
-    dispatchService: DispatchService;
+    @inject(TextCommandFactoryRegistry)
+    factories: TextCommandFactoryRegistry
 
-    constructor(
-        @inject(DispatchService) dispatchService: DispatchService,
-        @multiInject(TextCommandFactory) factories: TextCommandFactory[]
-    ) {
-        // store command factories
-        this.factories = new Collection<string, TextCommandFactory>();
-        for (let factory of factories) {
-            const name = factory.name;
-            this.factories.set(name, factory);
-        }
-
-        // register with dispatch service
-        this.dispatchService = dispatchService;
-        this.dispatchService.register(ctx => {
-            this.execute(ctx)
-        });
-    }
+    @inject(TextCommandHelpService)
+    help: TextCommandHelpService
 
     async execute(ctx: TextCommandContext) {
-        const factory = this.factories.get(ctx.command);
+        const factory = this.factories.factoryFor(ctx.command);
 
         if (factory) {
             try {
@@ -55,7 +43,7 @@ export class TextCommandService {
                     if (e.showHelp) {
                         ctx.msg.reply({
                             content: e.message,
-                            embeds: [this.helpFor(ctx.command)]
+                            embeds: [this.help.getHelpEmbed(ctx.command)]
                         });
                     } else {
                         ctx.msg.reply(e.message);
@@ -69,33 +57,9 @@ export class TextCommandService {
     }
 
     dispatch(msg: Message) {
-        this.dispatchService.dispatch(msg);
-    }
-
-    helpFor(commandName: string) {
-        const factory = this.factories.get(commandName);
-        if (factory) {
-            return factory.helpService.getHelpEmbed();
+        const parsedMessage = this.parserService.parse(msg)
+        if (parsedMessage) {
+            this.execute(parsedMessage)
         }
-    }
-
-    commandsEmbed() {
-        const factories = Array.from(this.factories.values());
-        let embed = new MessageEmbed();
-
-        let documentedFactories = factories.filter(
-            f => f.args.size > 0 || f.description);
-
-        let undocumentedFactories = factories.filter(
-            f => documentedFactories.indexOf(f) == -1);
-
-        documentedFactories.forEach(f => {
-            const desc = f.description === undefined ? "*No description.*" : f.description
-            embed = embed.addField(f.helpService.getUsage(), desc);
-        });
-
-        embed = embed.addField("Other commands:", undocumentedFactories.map(f => f.name).join(", "));
-
-        return embed;
     }
 }

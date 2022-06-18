@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextCommandMeta = void 0;
 const discord_js_1 = require("discord.js");
 const TextArgMeta_1 = require("./TextArgMeta");
+/**
+ * Decorator metadata for @command
+ */
 class TextCommandMeta {
     constructor() {
         this.args = new discord_js_1.Collection();

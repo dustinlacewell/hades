@@ -1,6 +1,7 @@
 import { Message } from "discord.js";
 import { inject, injectable } from "inversify";
 import { HadesBotService } from "../../services/HadesBotService";
+import { TextCommandHelpService } from "./TextCommandHelpService";
 import { TextCommandService } from "./TextCommandService/TextCommandService";
 
 
@@ -10,9 +11,12 @@ import { TextCommandService } from "./TextCommandService/TextCommandService";
 @injectable()
 export class TextCommandBotService extends HadesBotService {
     @inject(TextCommandService)
-    textCommandService: TextCommandService
+    commandService: TextCommandService
+
+    @inject(TextCommandHelpService)
+    helpService: TextCommandHelpService
 
     async onMessage<T extends Message>(message: T) {
-        this.textCommandService.dispatch(message);
+        this.commandService.dispatch(message);
     }
 }
