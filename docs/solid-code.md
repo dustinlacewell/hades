@@ -142,11 +142,81 @@ Well, in general, we want to capture the very highest-level description of the l
 
 Obviously, you can take this too far. 
 
-If you're trying to tell someone how to draw an owl, giving them the single step of "1. draw the owl" isn't very helpful. It's too coarse of a description.
+If you're trying to tell someone how to draw a house, giving them the single step of "1. draw the house" isn't very helpful. It's too coarse of a description.
+```ts
+function() drawHouse() {
+    drawHouse()
+}
+```
 
 At the opposite end of the spectrum we have the implementation itself, all the atomic steps needed to carry out the strategy.
+```ts
+function drawHouse() {
+    pen.goto(0,0)
+    pen.color("blue")
+    for (let i = 0; i < 2; i++) {
+        pen.forward(100)
+        pen.left(90)
+        pen.forward(100)
+        pen.left(90)
+    }
+    pen.goto(0,100)
+    pen.color("green")
+    for (let i = 0; i < 3; i++) {
+        pen.forward(100)
+        pen.left(120)
+    }
+    pen.goto(40,0)
+    pen.color("brown")
+    for (let i = 0; i < 2; i++) {
+        pen.forward(20)
+        pen.left(90)
+        pen.forward(50)
+        pen.left(90)
+    }
+}
+```
 
 What we want is something that approaches the former without reaching it. We want to express the minimal number of steps but enough to actually differentiate this strategy from the alternatives.
+```ts
+function drawTriangle(x: number, y: number, length: number, color: string) {
+    pen.goto(x,y)
+    pen.color(color)
+    for (let i = 0; i < 3; i++) {
+        pen.forward(length)
+        pen.left(120)
+    }
+}
+
+function drawRectangle(x: number, y: number, length: number, color: string) {
+    pen.goto(x,y)
+    pen.color(color)
+    for (let i = 0; i < 2; i++) {
+        pen.forward(width)
+        pen.left(90)
+        pen.forward(height)
+        pen.left(90)
+    }
+}
+
+function drawWalls() {
+    drawRectangle(0, 0, 100, 100, "blue")
+}
+
+function drawRoof() {
+    drawTriangle(0, 100, 100, "green")
+}
+
+function drawDoor() {
+    drawRectangle(40, 0, 20, 50, "brown")
+}
+
+function drawHouse() {
+    drawWalls()
+    drawRoof()
+    drawDoor()
+}
+```
 
 Unfortunately there is no generalized method for deriving what level of description best conveys the nature of a given strategy.
 
@@ -174,17 +244,34 @@ One of these is not like the other two. Can you guess which?
 ### Construction
 
 With construction, we instantiate the dependency directly ourselves. Not only do we take on providing our own dependency, but all of its constructor arguments too.
-
+```ts
+class Foo {
+    bar: Bar = new Bar("x","y","z");
+}
+```
 
 ### Service Location
 
 Service location is any mechanism for reaching out to a parent scope in order to reference the dependency. This might be in the form of an import or a module-level local.
+```ts
+const bar = new Bar("x","y","z"); // or import { bar } from "./some-module";
 
+class Foo {
+    bar: Bar = bar;
+}
+```
 
 ### Dependency Injection
 
 "Dependency Injection" means it is up to someone else to provide our dependencies to us. Usually this is in the form of function or constructor arguments.
-
+```ts
+class Foo {
+    bar: Bar;
+    constructor(bar: Bar) {
+        this.bar = bar;
+    }
+}
+```
 
 ## Why Dependency Injection is Best
 
