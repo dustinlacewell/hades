@@ -15,6 +15,12 @@ export const defaultMappedTypes: TypePair[] = [
     [GuildMember, MemberParser],
 ]
 
+
+/**
+ * Binds which Parsers to use for what argument types, by default.
+ * @param container HadesContainer to use.
+ * @param mappedTypes Type mappings.
+ */
 export const installDefaultMappedTypes = (container: Container, mappedTypes: TypePair[]) => {
     mappedTypes.forEach(
         pair => {

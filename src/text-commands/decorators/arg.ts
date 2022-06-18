@@ -6,15 +6,28 @@ import { TextArgParser } from "../parsers/TextArgParser";
 import { camelToDash } from "../utils";
 
 
+/**
+ * Options for the @arg decorator.
+ */
 export type ArgInfo = {
+    /** name of the argument */
     name?: string,
+    /** type of the argument */
     type?: string,
+    /** which parser should be used */
     parser?: Newable<TextArgParser>,
+    /** help description */
     description?: string,
+    /** methods to validate this argument */
     validatorMethods?: Set<string>,
+    /** installers for Validators */
     validatorInstallers?: InstallerFunc[],
 };
 
+/**
+ * Marks the field of a TextCommand as an argument.
+ * @param info Options for the decorator.
+ */
 export function arg(info?: ArgInfo) {
     return (target: Constructable, key: string) => {
         const meta = getTextArgMeta(target.constructor, key);
@@ -30,6 +43,7 @@ export function arg(info?: ArgInfo) {
             meta.validatorMethods = info.validatorMethods || meta.validatorMethods;
             meta.validatorInstallers = info.validatorInstallers || meta.validatorInstallers;
         }
+        // decorate the field with @inject(key)
         inject(key)(target, key);
     };
 };

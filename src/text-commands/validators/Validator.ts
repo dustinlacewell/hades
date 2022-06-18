@@ -6,6 +6,9 @@ import { Constructable } from '../../utils';
 import { TextCommandContext } from '../models/TextCommandContext';
 
 
+/**
+ * Base class for reusable argument validators.
+ */
 @injectable()
 export class Validator {
     public async validate(arg: TextArgInstaller, ctx: TextCommandContext, value: any): Promise<any> {

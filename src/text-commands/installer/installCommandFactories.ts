@@ -3,6 +3,10 @@ import { TextCommandFactory } from "../services/TextCommandFactory/TextCommandFa
 import { getTextCommandMetas } from "../metadata";
 
 
+/**
+ * Binds TextCommandFactory instances for each @command
+ * @param container The HadesContainer to use.
+ */
 export const installCommandFactories = (container: Container) => {
     const commandMetas = getTextCommandMetas();
     for (let meta of commandMetas.values()) {

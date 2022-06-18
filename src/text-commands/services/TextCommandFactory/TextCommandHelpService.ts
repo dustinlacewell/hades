@@ -4,6 +4,11 @@ import { TextArgInstaller } from './TextArgInstaller';
 import { TextCommandFactory } from './TextCommandFactory';
 
 
+/**
+ * Extracts help information from a command.
+ * 
+ * TODO: Why does this accept the TextCommandFactory?
+ */
 export class TextCommandHelpService {
     constructor(private command: TextCommandFactory) { }
 

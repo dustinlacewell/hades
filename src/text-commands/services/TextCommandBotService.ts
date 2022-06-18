@@ -4,6 +4,9 @@ import { HadesBotService } from "../../services/HadesBotService";
 import { TextCommandService } from "./TextCommandService/TextCommandService";
 
 
+/**
+ * A base bot class with text command support.
+ */
 @injectable()
 export class TextCommandBotService extends HadesBotService {
     @inject(TextCommandService)

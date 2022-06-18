@@ -9,6 +9,10 @@ import { StringParser } from '../../parsers';
 
 export type TypeMap = [Constructor, Newable<TextArgParser>];
 
+
+/**
+ * Decides which parser to use for a given argument type.
+ */
 @singleton(TextArgParserResolver)
 export class TextArgParserResolver {
 
@@ -22,6 +26,11 @@ export class TextArgParserResolver {
         }
     }
 
+    /**
+     * Get a parser type for a given argument type.
+     * @param fromType The argument type to look up.
+     * @returns 
+     */
     infer(fromType: Constructor) {
         if (!fromType) {
             return StringParser;

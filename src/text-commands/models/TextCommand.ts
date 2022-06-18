@@ -6,14 +6,20 @@ import { DiscordService } from "../../services/DiscordService";
 import { TextCommandContext } from "./TextCommandContext";
 
 
+/**
+ * Base command class.
+ */
 @injectable()
 export abstract class TextCommand {
+    /** information on the current command invocation */
     @inject('TextCommandContext')
     context: TextCommandContext;
 
+    /** service for getting data from discord */
     @inject(DiscordService)
     discord: DiscordService;
 
+    /** main command logic handler */
     abstract execute(): Promise<any>;
 
     get activity() { return this.msg.activity; }

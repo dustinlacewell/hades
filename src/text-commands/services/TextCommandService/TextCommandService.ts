@@ -9,11 +9,21 @@ import { singleton } from '../../../decorators/singleton';
 import { DispatchService } from './TextCommandDispatch';
 
 
+/**
+ * Orchestrates parsing and executing commands.
+ * 
+ * TODO: Actually implement sensible command prefix support.
+ * 
+ */
 @singleton(TextCommandService)
 export class TextCommandService {
+    /** the command prefix */
     prefix: string;
+    /** ??? TODO: ??? */
     options: any;
+    /** factories for creating command instances */
     factories: Collection<string, TextCommandFactory>;
+    /** service for dispatching commands to listeners */
     dispatchService: DispatchService;
 
     constructor(

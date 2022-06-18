@@ -4,6 +4,11 @@ import { Constructable, Constructor } from '../../utils';
 
 export interface DescriptionDecorator extends ClassDecorator, PropertyDecorator { }
 
+
+/**
+ * Sets the description on a @command or @arg decorated target.
+ * @param msg The description.
+ */
 export function description(msg: string): DescriptionDecorator {
     function DD(target: object, key?: any) {
         if (key) {

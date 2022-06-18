@@ -4,6 +4,9 @@ import { Constructor } from "../../utils";
 import { TextArgMeta } from "./TextArgMeta";
 
 
+/**
+ * Decorator metadata for @command
+ */
 export class TextCommandMeta {
     name: string;
     target: Constructor;

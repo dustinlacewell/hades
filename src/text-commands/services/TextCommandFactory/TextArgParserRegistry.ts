@@ -8,6 +8,8 @@ import { Newable } from '../../../utils';
 
 /**
  * A registry of decorated Parsers.
+ * 
+ * Provides easy access to what classes were decorated with @parser.
  */
 @singleton(TextArgParserRegistry)
 export class TextArgParserRegistry {

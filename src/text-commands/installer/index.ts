@@ -6,6 +6,10 @@ import { installParsers } from "./installParsers";
 
 export { defaultMappedTypes, TypePair } from "./installDefaultMappedTypes";
 
+
+/**
+ * Installs text command support in HadesContainer.
+ */
 export class TextCommandsInstaller extends Installer {
     constructor(
         private readonly mappedTypes: TypePair[] = defaultMappedTypes
