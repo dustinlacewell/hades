@@ -3,7 +3,7 @@ import { multiInject, postConstruct } from 'inversify';
 
 import { singleton } from '../../../decorators/singleton';
 
-import { TextCommandHelper } from '../TextCommandHelpService/TextCommandHelper';
+import { TextCommandHelper } from './TextCommandHelper';
 
 
 /**
