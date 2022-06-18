@@ -21,8 +21,6 @@ export class TextCommandHelperRegistry {
         for (const helper of this.helpers) {
             this.map.set(helper.name, helper);
         }
-        console.log("WTF?")
-        console.log(this.helpers)
     }
 
     helperFor(name: string) {

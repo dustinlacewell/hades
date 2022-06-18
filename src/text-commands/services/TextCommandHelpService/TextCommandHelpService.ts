@@ -23,9 +23,6 @@ export class TextCommandHelpService {
         let embed = new MessageEmbed()
         const undocumented: TextCommandHelper[] = []
 
-        console.log("Helper")
-        console.log(this.helpers)
-
         for (const helper of this.helpers.helpers) {
             if (helper.args.size > 0 || helper.description) {
                 embed = embed.addField(helper.getUsage(), helper.description)

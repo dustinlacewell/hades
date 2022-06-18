@@ -26,8 +26,6 @@ let TextCommandHelperRegistry = TextCommandHelperRegistry_1 = class TextCommandH
         for (const helper of this.helpers) {
             this.map.set(helper.name, helper);
         }
-        console.log("WTF?");
-        console.log(this.helpers);
     }
     helperFor(name) {
         return this.map.get(name);
