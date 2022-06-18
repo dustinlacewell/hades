@@ -14,7 +14,7 @@ exports.TextCommandHelperRegistry = void 0;
 const discord_js_1 = require("discord.js");
 const inversify_1 = require("inversify");
 const singleton_1 = require("../../../decorators/singleton");
-const TextCommandHelper_1 = require("../TextCommandHelpService/TextCommandHelper");
+const TextCommandHelper_1 = require("./TextCommandHelper");
 /**
  * A registry of available command helpers.
  */

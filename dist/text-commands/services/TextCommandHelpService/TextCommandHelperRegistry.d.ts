@@ -1,5 +1,5 @@
 import { Collection } from 'discord.js';
-import { TextCommandHelper } from '../TextCommandHelpService/TextCommandHelper';
+import { TextCommandHelper } from './TextCommandHelper';
 /**
  * A registry of available command helpers.
  */

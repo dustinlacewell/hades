@@ -9,6 +9,7 @@ export declare type TextParserServiceOptions = {
 export declare const defaults: TextParserServiceOptions;
 export declare class TextParserService {
     options: TextParserServiceOptions;
+    constructor(options?: TextParserServiceOptions);
     /**
      * Replace the bot's nickname with the command prefix.
      * @param msg The original invocation Message.
