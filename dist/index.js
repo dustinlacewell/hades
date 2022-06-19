@@ -20,5 +20,6 @@ __exportStar(require("./decorators"), exports);
 __exportStar(require("./services/DiscordService"), exports);
 __exportStar(require("./services/EventService"), exports);
 __exportStar(require("./services/HadesClient"), exports);
+__exportStar(require("./services/HadesBotService"), exports);
 __exportStar(require("./utils"), exports);
 //# sourceMappingURL=index.js.map
