@@ -14,3 +14,4 @@ export declare class HadesContainer extends Container {
      */
     private loadConfigurationModule;
 }
+//# sourceMappingURL=HadesContainer.d.ts.map

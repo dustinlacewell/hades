@@ -11,3 +11,4 @@ export declare abstract class EventService {
      */
     register(bot: HadesBotService): void;
 }
+//# sourceMappingURL=EventService.d.ts.map

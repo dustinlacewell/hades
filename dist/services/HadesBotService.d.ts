@@ -68,3 +68,4 @@ export declare class HadesBotService {
     onUserUpdate(oldUser: User, newUser: User): Promise<void>;
     onVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember): Promise<void>;
 }
+//# sourceMappingURL=HadesBotService.d.ts.map

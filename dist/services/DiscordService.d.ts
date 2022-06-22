@@ -71,3 +71,4 @@ export declare class DiscordService {
      */
     getRoles(guildId: string): import("@discordjs/collection").Collection<string, import("discord.js").Role>;
 }
+//# sourceMappingURL=DiscordService.d.ts.map

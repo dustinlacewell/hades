@@ -6,3 +6,4 @@ export * from './services/EventService';
 export * from './services/HadesClient';
 export * from './services/HadesBotService';
 export * from './utils';
+//# sourceMappingURL=index.d.ts.map

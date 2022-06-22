@@ -7,3 +7,4 @@ export declare type Constructable = {
 };
 export declare type Newable<T> = new (...args: any[]) => T;
 export declare type InstallerFunc = (container: Container) => void;
+//# sourceMappingURL=utils.d.ts.map
