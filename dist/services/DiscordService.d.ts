@@ -1,6 +1,6 @@
-import { ChannelType } from 'discord-api-types/v10';
 import { CategoryChannel, GuildBasedChannel, TextChannel } from 'discord.js';
 import { HadesClient } from './HadesClient';
+export declare type ChannelTypes = "GUILD_CATEGORY" | "GUILD_NEWS" | "GUILD_STAGE_VOICE" | "GUILD_STORE" | "GUILD_TEXT" | "GUILD_VOICE";
 /**
  * A service for getting guild information from Discord.
  *
@@ -44,7 +44,7 @@ export declare class DiscordService {
      * @param guildId The ID of the guild.
      * @returns Collection<string, GuildChannel>
      */
-    getChansOf<T extends GuildBasedChannel>(type: ChannelType, guildId: string): import("@discordjs/collection").Collection<string, T>;
+    getChansOf<T extends GuildBasedChannel>(type: ChannelTypes, guildId: string): import("@discordjs/collection").Collection<string, T>;
     /**
      * Get the channel categories of a guild.
      * @param guildId The ID of the guild.

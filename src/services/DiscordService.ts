@@ -6,6 +6,14 @@ import { singleton } from '../decorators';
 import { HadesClient } from './HadesClient';
 
 
+export type ChannelTypes =
+    "GUILD_CATEGORY" |
+    "GUILD_NEWS" |
+    "GUILD_STAGE_VOICE" |
+    "GUILD_STORE" |
+    "GUILD_TEXT" |
+    "GUILD_VOICE"
+
 /**
  * A service for getting guild information from Discord.
  * 
@@ -80,11 +88,12 @@ export class DiscordService {
      * @param guildId The ID of the guild.
      * @returns Collection<string, GuildChannel>
      */
-    getChansOf<T extends GuildBasedChannel>(type: ChannelType, guildId: string) {
+    getChansOf<T extends GuildBasedChannel>(type: ChannelTypes, guildId: string) {
+        console.log(`Grabbing channels of type ${type} for guild ${guildId}`);
         const guild = this.guilds.get(guildId);
         if (guild !== undefined) {
             return guild.channels.cache
-                .filter((chan, _) => ChannelType[chan.type] === type)
+                .filter((chan, _) => chan.type === type)
                 .mapValues((chan, _) => chan as T)
         }
     }
@@ -95,7 +104,7 @@ export class DiscordService {
      * @returns Collection<string, CategoryChannel>
      */
     getCategories(guildId: string) {
-        return this.getChansOf<CategoryChannel>(ChannelType.GuildCategory, guildId);
+        return this.getChansOf<CategoryChannel>("GUILD_CATEGORY", guildId);
     }
 
     /**
@@ -104,7 +113,7 @@ export class DiscordService {
      * @returns Collection<string, TextChannel>
      */
     getChannels(guildId: string) {
-        return this.getChansOf<TextChannel>(ChannelType.GuildText, guildId);
+        return this.getChansOf<TextChannel>("GUILD_TEXT", guildId);
     }
 
     /**

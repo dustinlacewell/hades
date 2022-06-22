@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var DiscordService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DiscordService = void 0;
-const v10_1 = require("discord-api-types/v10");
 const inversify_1 = require("inversify");
 const decorators_1 = require("../decorators");
 const HadesClient_1 = require("./HadesClient");
@@ -85,10 +84,11 @@ let DiscordService = DiscordService_1 = class DiscordService {
      * @returns Collection<string, GuildChannel>
      */
     getChansOf(type, guildId) {
+        console.log(`Grabbing channels of type ${type} for guild ${guildId}`);
         const guild = this.guilds.get(guildId);
         if (guild !== undefined) {
             return guild.channels.cache
-                .filter((chan, _) => v10_1.ChannelType[chan.type] === type)
+                .filter((chan, _) => chan.type === type)
                 .mapValues((chan, _) => chan);
         }
     }
@@ -98,7 +98,7 @@ let DiscordService = DiscordService_1 = class DiscordService {
      * @returns Collection<string, CategoryChannel>
      */
     getCategories(guildId) {
-        return this.getChansOf(v10_1.ChannelType.GuildCategory, guildId);
+        return this.getChansOf("GUILD_CATEGORY", guildId);
     }
     /**
      * Get the channels of a guild.
@@ -106,7 +106,7 @@ let DiscordService = DiscordService_1 = class DiscordService {
      * @returns Collection<string, TextChannel>
      */
     getChannels(guildId) {
-        return this.getChansOf(v10_1.ChannelType.GuildText, guildId);
+        return this.getChansOf("GUILD_TEXT", guildId);
     }
     /**
      * Get a channel of a guild.
