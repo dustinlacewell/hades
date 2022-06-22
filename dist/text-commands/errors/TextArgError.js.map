@@ -1,1 +1,0 @@
-{"version":3,"file":"TextArgError.js","sourceRoot":"","sources":["../../../src/text-commands/errors/TextArgError.ts"],"names":[],"mappings":";;;AACA;;;;;GAKG;AACH,MAAa,YAAa,SAAQ,KAAK;IAGnC,YAAY,GAAW,EAAE,QAAQ,GAAG,IAAI;QACpC,KAAK,CAAC,GAAG,CAAC,CAAC;QACX,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC7B,CAAC;CACJ;AAPD,oCAOC"}
