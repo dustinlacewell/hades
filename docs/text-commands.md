@@ -27,14 +27,14 @@ Add text command support to your `HadesContainer`:
 import "reflect-metadata";
 
 import { HadesContainer } from "hades";
-import { installTextCommands } from "hades/dist/text-commands";
+import { TextCommandsInstaller } from "hades/dist/text-commands";
 
 import { BotService } from "./services/BotService";
 
 const container = new HadesContainer({
     installers: [
-        installTextCommands,
-    ]
+        new TextCommandsInstaller(),
+    ],
 });
 const bot = container.get(BotService);
 bot.login()
