@@ -14,7 +14,7 @@ Typescript bot framework using [Inversify.js](https://inversify.io/) and [Discor
 
 Install the latest version from Git using NPM:
 
-    $> npm i --save https://github.com/dustinlacewell/hades.git
+    npm i --save https://github.com/dustinlacewell/hades.git
 
 
 ## Example
