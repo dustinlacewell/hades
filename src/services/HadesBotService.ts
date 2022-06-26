@@ -4,6 +4,7 @@ import {
     Emoji,
     Guild,
     GuildMember,
+    Interaction,
     Message,
     MessageReaction,
     Role,
@@ -92,6 +93,9 @@ export class HadesBotService {
     async onGuildMemberUpdate(oldMember: GuildMember, newMember: GuildMember) { }
     async onGuildMembersChunk(members: GuildMember[], guild: Guild) { }
     async onGuildUpdate(oldGuild: Guild, newGuild: Guild) { }
+
+    /* interactions */
+    async onInteractionCreate<T extends Interaction>(interaction: T) {}
 
     /* messages */
     async onMessage<T extends Message>(message: T) { }
