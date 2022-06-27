@@ -7,7 +7,15 @@ export class SlashCommandContext {
     success: boolean;
     command: string;
 
-    constructor(interaction: BaseCommandInteraction) {
+    constructor(interaction: BaseCommandInteraction, parsed: any) {
         this.interaction = interaction;
+        this.command = parsed.command;
+        this.body = parsed.body;
+        this.args = parsed.arguments;
+        this.success = parsed.success;
+    }
+
+    getString() {
+      return this.body;
     }
 }
