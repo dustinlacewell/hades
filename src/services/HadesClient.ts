@@ -1,5 +1,6 @@
 import { GatewayIntentBits } from "discord-api-types/v10";
 import { Client } from "discord.js";
+import { postConstruct } from "inversify";
 
 import { singleton } from "../decorators";
 
