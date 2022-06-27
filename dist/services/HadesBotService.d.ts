@@ -1,4 +1,4 @@
-import { Channel, Collection, Emoji, Guild, GuildMember, Message, MessageReaction, Role, Snowflake, User } from 'discord.js';
+import { BaseCommandInteraction, Channel, Collection, Emoji, Guild, GuildMember, Message, MessageReaction, Role, Snowflake, User } from 'discord.js';
 import { EventService } from './EventService';
 import { HadesClient } from './HadesClient';
 /**
@@ -51,6 +51,7 @@ export declare class HadesBotService {
     onGuildMemberUpdate(oldMember: GuildMember, newMember: GuildMember): Promise<void>;
     onGuildMembersChunk(members: GuildMember[], guild: Guild): Promise<void>;
     onGuildUpdate(oldGuild: Guild, newGuild: Guild): Promise<void>;
+    onInteractionCreate<T extends BaseCommandInteraction>(interaction: T): Promise<void>;
     onMessage<T extends Message>(message: T): Promise<void>;
     onMessageDelete(message: Message): Promise<void>;
     onMessageDeleteBulk(messages: Collection<Snowflake, Message>): Promise<void>;
