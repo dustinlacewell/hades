@@ -18,7 +18,6 @@ import { inject, postConstruct } from 'inversify';
 import { EventService } from './EventService';
 import { HadesClient } from './HadesClient';
 
-
 /**
  * A base service for building bots with Hades.
  * 

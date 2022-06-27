@@ -1,4 +1,4 @@
-import { Client, Interaction } from 'discord.js';
+import { Interaction } from 'discord.js';
 import { HadesBotService } from "../../services/HadesBotService";
 import { SlashCommandService } from "./SlashCommandService/SlashCommandService";
 export interface GuildConfig {
@@ -12,7 +12,5 @@ export interface GuildConfig {
 export declare class SlashCommandBotService extends HadesBotService {
     commandService: SlashCommandService;
     onReady(): Promise<void>;
-    registerSlashCommands(): Promise<void>;
-    registerCommands(client: Client, guildId: string): Promise<void>;
     onInteractionCreate<T extends Interaction>(interaction: T): Promise<void>;
 }

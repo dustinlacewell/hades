@@ -17,50 +17,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SlashCommandBotService = void 0;
-const rest_1 = require("@discordjs/rest");
-const v9_1 = require("discord-api-types/v9");
+const discord_js_1 = require("discord.js");
 const inversify_1 = require("inversify");
 const HadesBotService_1 = require("../../services/HadesBotService");
 const SlashCommandService_1 = require("./SlashCommandService/SlashCommandService");
-const commands_1 = __importDefault(require("../commands"));
+const Ping_1 = require("../commands/Ping");
 let SlashCommandBotService = class SlashCommandBotService extends HadesBotService_1.HadesBotService {
     // @inject(SlashCommandHelpService)
     // helpService: SlashCommandHelpService
     onReady() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.registerSlashCommands();
-        });
-    }
-    registerSlashCommands() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.client.guilds.cache.forEach(guild => {
-                this.registerCommands(this.client, guild.id);
-            });
-        });
-    }
-    registerCommands(client, guildId) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const rest = new rest_1.REST({ version: "9" }).setToken(process.env.DISCORD_BOT_TOKEN);
-            const commandData = commands_1.default.map((getData) => {
-                const data = getData("en");
-                return data.toJSON();
-            });
-            yield rest.put(v9_1.Routes.applicationGuildCommands(((_a = client.user) === null || _a === void 0 ? void 0 : _a.id) || "missing id", guildId), { body: commandData });
+            this.client.commands = new discord_js_1.Collection();
+            this.client.commands.set(Ping_1.getPingData.data.name, Ping_1.getPingData);
         });
     }
     onInteractionCreate(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Executing onInteractionCreate...');
-            if (interaction.isCommand()) {
-                console.log("this is a command");
+            if (!interaction.isCommand()) {
+                console.log("this is not a command");
+                return;
             }
-            console.log("this is not a command");
+            console.log("this is a command");
+            // const command = this.client.commands.get(interaction.commandName);
             // interaction.reply("interactionCreated")
             // this.commandService.dispatch(interaction);
         });
