@@ -32,13 +32,6 @@ let SlashCommandBotService = class SlashCommandBotService extends HadesBotServic
             // this.commandService.dispatch(interaction);
         });
     }
-    onMessage(msg) {
-        return __awaiter(this, void 0, void 0, function* () {
-            // console.log('Executing onMessage...')
-            msg.reply("test");
-            // this.commandService.dispatch(interaction);
-        });
-    }
 };
 __decorate([
     (0, inversify_1.inject)(SlashCommandService_1.SlashCommandService),

@@ -18,9 +18,9 @@ export class SlashCommandBotService extends HadesBotService {
         // this.commandService.dispatch(interaction);
     }
 
-    async onMessage<T extends Message>(msg: T) {
-        // console.log('Executing onMessage...')
-        msg.reply("test")
-        // this.commandService.dispatch(interaction);
-    }
+    // async onMessage<T extends Message>(msg: T) {
+    //     // console.log('Executing onMessage...')
+    //     msg.reply("test")
+    //     // this.commandService.dispatch(interaction);
+    // }
 }
