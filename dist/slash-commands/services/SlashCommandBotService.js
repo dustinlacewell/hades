@@ -25,15 +25,16 @@ const SlashCommandService_1 = require("./SlashCommandService/SlashCommandService
 let SlashCommandBotService = class SlashCommandBotService extends HadesBotService_1.HadesBotService {
     // @inject(SlashCommandHelpService)
     // helpService: SlashCommandHelpService
-    onInteractionCreated(interaction) {
+    onInteractionCreate(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('Executing onInteractionCreated...');
-            this.commandService.dispatch(interaction);
+            console.log('Executing onInteractionCreate...');
+            interaction.reply("interactionCreated");
+            // this.commandService.dispatch(interaction);
         });
     }
     onMessage(msg) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('Executing onMessage...');
+            // console.log('Executing onMessage...')
             msg.reply("test");
             // this.commandService.dispatch(interaction);
         });
