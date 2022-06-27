@@ -29,6 +29,7 @@ let SlashCommandBotService = class SlashCommandBotService extends HadesBotServic
     // helpService: SlashCommandHelpService
     onReady() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('Executing onReady...');
             this.client.commands = new discord_js_1.Collection();
             this.client.commands.set(Ping_1.getPingData.data.name, Ping_1.getPingData);
         });

@@ -22,6 +22,7 @@ export class SlashCommandBotService extends HadesBotService {
     // helpService: SlashCommandHelpService
 
     async onReady() {
+      console.log('Executing onReady...')
       this.client.commands = new Collection()
       this.client.commands.set(getPingData.data.name, getPingData)
     }
