@@ -123,6 +123,10 @@ class HadesBotService {
     onGuildUpdate(oldGuild, newGuild) {
         return __awaiter(this, void 0, void 0, function* () { });
     }
+    /* interactions */
+    onInteractionCreate(interaction) {
+        return __awaiter(this, void 0, void 0, function* () { });
+    }
     /* messages */
     onMessage(message) {
         return __awaiter(this, void 0, void 0, function* () { });

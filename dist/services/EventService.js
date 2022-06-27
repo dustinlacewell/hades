@@ -49,6 +49,7 @@ let EventService = EventService_1 = class EventService {
             .on('guildMemberUpdate', bot.onGuildMemberUpdate.bind(bot))
             .on('guildMembersChunk', bot.onGuildMembersChunk.bind(bot))
             .on('guildUpdate', bot.onGuildUpdate.bind(bot))
+            .on('interactionCreate', (...args) => bot.onInteractionCreate(...args))
             // .on('message', bot.onMessage.bind(bot))
             .on('messageCreate', (...args) => bot.onMessage(...args))
             .on('messageDelete', bot.onMessageDelete.bind(bot))

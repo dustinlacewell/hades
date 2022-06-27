@@ -41,7 +41,7 @@ export class SlashCommandService {
                 console.error(e);
             }
         }
-    }
+      }
     }
 
     dispatch(interaction: BaseCommandInteraction) {
