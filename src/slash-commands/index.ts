@@ -1,3 +1,4 @@
+export * from './builtins';
 export * from './decorators';
 export * from './errors';
 export * from './installer';
@@ -5,10 +6,5 @@ export * from './metadata';
 export * from './models';
 export * from './parsers';
 export * from './services/SlashCommandBotService';
-export * from './services/SlashCommandFactory/SlashArgInstaller';
-export * from './services/SlashCommandFactory/SlashArgParserRegistry';
-export * from './services/SlashCommandFactory/SlashArgParserResolver';
-export * from './services/SlashCommandFactory/SlashCommandFactory';
-export * from './services/SlashCommandFactory/SlashCommandFactoryRegistry';
-export * from './services/SlashCommandService/SlashCommandService';
-export * from './services/SlashCommandService/SlashParserService';
+export * from './services/SlashCommandFactory';
+export * from './services/SlashCommandService';
