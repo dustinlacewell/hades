@@ -9,16 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPingData = void 0;
-const builders_1 = require("@discordjs/builders");
-exports.getPingData = {
-    data: new builders_1.SlashCommandBuilder()
-        .setName('ping')
-        .setDescription("Request Ping"),
-    execute(interaction) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return interaction.reply("Pong!");
+exports.Ping = void 0;
+exports.Ping = {
+    name: "ping",
+    description: "Returns pong",
+    type: "CHAT_INPUT",
+    run: (client, interaction) => __awaiter(void 0, void 0, void 0, function* () {
+        yield interaction.followUp({
+            ephemeral: true,
+            content: "Pong!"
         });
-    }
+    })
 };
 //# sourceMappingURL=Ping.js.map

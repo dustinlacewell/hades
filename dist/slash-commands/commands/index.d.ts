@@ -1,5 +1,2 @@
-declare const _default: {
-    data: import("@discordjs/builders").SlashCommandBuilder;
-    execute(interaction: import("discord.js").BaseCommandInteraction<import("discord.js").CacheType>): Promise<void>;
-}[];
+declare const _default: import("./Command").Command[];
 export default _default;

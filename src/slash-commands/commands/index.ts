@@ -1,5 +1,5 @@
-import { getPingData } from "./Ping";
+import { Ping } from "./Ping";
 
 export default [
-  getPingData
+  Ping
 ]

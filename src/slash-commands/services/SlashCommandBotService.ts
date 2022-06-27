@@ -2,7 +2,7 @@ import { BaseCommandInteraction, Client, Collection, Interaction, Message } from
 import { inject, injectable } from "inversify";
 import { HadesBotService } from "../../services/HadesBotService";
 import { SlashCommandService } from "./SlashCommandService/SlashCommandService";
-import { getPingData } from '../commands/Ping';
+import Commands from '../commands';
 
 export interface GuildConfig {
   id: string
@@ -23,24 +23,35 @@ export class SlashCommandBotService extends HadesBotService {
 
     async onReady() {
       console.log('Executing onReady...')
-      this.client.commands = new Collection()
-      this.client.commands.set(getPingData.data.name, getPingData)
+      await this.client.application.commands.set(Commands)
     }
 
     async onInteractionCreate<T extends Interaction>(interaction: T) {
         console.log('Executing onInteractionCreate...')
 
-        if (!interaction.isCommand()) {
+        if (!interaction.isCommand() || interaction.isContextMenu()) {
           console.log("this is not a command")
           return
         }
         console.log("this is a command")
+        await this.executeSlashCommand(interaction)
         // const command = this.client.commands.get(interaction.commandName);
 
         // interaction.reply("interactionCreated")
         // this.commandService.dispatch(interaction);
     }
 
+    async executeSlashCommand(interaction: BaseCommandInteraction) {
+      const slashCommand = Commands.find(command => command.name === interaction.commandName)
+      if (!slashCommand) {
+          interaction.followUp({ content: "There was an error." })
+          return
+      }
+  
+      await interaction.deferReply()
+  
+      slashCommand.run(this.client, interaction)
+    }
     // async onMessage<T extends Message>(msg: T) {
     //     // console.log('Executing onMessage...')
     //     msg.reply("test")

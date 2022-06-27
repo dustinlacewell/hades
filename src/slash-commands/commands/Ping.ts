@@ -1,11 +1,14 @@
-import { SlashCommandBuilder } from '@discordjs/builders'
-import { BaseCommandInteraction } from 'discord.js'
+import { BaseCommandInteraction, Client } from "discord.js";
+import { Command } from "./Command";
 
-export const getPingData = {
-  data: new SlashCommandBuilder()
-    .setName('ping')
-    .setDescription("Request Ping"),
-  async execute(interaction: BaseCommandInteraction) {
-    return interaction.reply("Pong!")
-  }
-}
+export const Ping: Command = {
+    name: "ping",
+    description: "Returns pong",
+    type: "CHAT_INPUT",
+    run: async (client: Client, interaction: BaseCommandInteraction) => {
+        await interaction.followUp({
+            ephemeral: true,
+            content: "Pong!"
+        });
+    }
+};
