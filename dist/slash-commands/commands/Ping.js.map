@@ -1,0 +1,1 @@
+{"version":3,"file":"Ping.js","sourceRoot":"","sources":["../../../src/slash-commands/commands/Ping.ts"],"names":[],"mappings":";;;AAAA,kDAAyD;AAElD,MAAM,WAAW,GAAG,CAAC,IAAY,EAAE,EAAE;IAC1C,MAAM,OAAO,GAAG,IAAI,8BAAmB,EAAE,CAAA;IACzC,OAAO;SACJ,OAAO,CAAC,MAAM,CAAC;SACf,cAAc,CAAC,cAAc,CAAC,CAAA;IACjC,OAAO,OAAO,CAAA;AAChB,CAAC,CAAA;AANY,QAAA,WAAW,eAMvB"}
