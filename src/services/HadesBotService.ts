@@ -97,7 +97,7 @@ export class HadesBotService {
     async onGuildUpdate(oldGuild: Guild, newGuild: Guild) { }
 
     /* interactions */
-    async onInteractionCreate<T extends BaseCommandInteraction>(interaction: T) {}
+    async onInteractionCreate<T extends Interaction>(interaction: T) {}
 
     /* messages */
     async onMessage<T extends Message>(message: T) { }

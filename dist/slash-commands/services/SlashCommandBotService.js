@@ -28,7 +28,11 @@ let SlashCommandBotService = class SlashCommandBotService extends HadesBotServic
     onInteractionCreate(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Executing onInteractionCreate...');
-            interaction.reply("interactionCreated");
+            if (interaction.isCommand()) {
+                console.log("this is a command");
+            }
+            console.log("this is not a command");
+            // interaction.reply("interactionCreated")
             // this.commandService.dispatch(interaction);
         });
     }

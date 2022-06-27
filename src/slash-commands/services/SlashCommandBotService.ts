@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, Message } from 'discord.js';
+import { BaseCommandInteraction, Interaction, Message } from 'discord.js';
 import { inject, injectable } from "inversify";
 import { HadesBotService } from "../../services/HadesBotService";
 import { SlashCommandService } from "./SlashCommandService/SlashCommandService";
@@ -11,10 +11,14 @@ export class SlashCommandBotService extends HadesBotService {
     // @inject(SlashCommandHelpService)
     // helpService: SlashCommandHelpService
 
-    async onInteractionCreate<T extends BaseCommandInteraction>(interaction: T) {
+    async onInteractionCreate<T extends Interaction>(interaction: T) {
         console.log('Executing onInteractionCreate...')
-        interaction.reply("interactionCreated")
+        if (interaction.isCommand()) {
+          console.log("this is a command")
+        }
+        console.log("this is not a command")
 
+        // interaction.reply("interactionCreated")
         // this.commandService.dispatch(interaction);
     }
 
