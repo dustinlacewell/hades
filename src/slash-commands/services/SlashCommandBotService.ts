@@ -12,11 +12,13 @@ export class SlashCommandBotService extends HadesBotService {
     // helpService: SlashCommandHelpService
 
     async onInteractionCreated<T extends BaseCommandInteraction>(interaction: T) {
+        console.log('Executing onInteractionCreated...')
         this.commandService.dispatch(interaction);
     }
 
     async onMessage<T extends Message>(msg: T) {
-      msg.reply("test")
-      // this.commandService.dispatch(interaction);
+        console.log('Executing onMessage...')
+        msg.reply("test")
+        // this.commandService.dispatch(interaction);
     }
 }
