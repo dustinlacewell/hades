@@ -10,6 +10,6 @@ export class StringParser extends SlashArgParser {
     description = 'Anything really. Use "quote for spaces"."';
 
     async parse(arg: SlashArgInstaller, context: SlashCommandContext) {
-        return context.getString();
+        return context.getCommandName();
     }
 }

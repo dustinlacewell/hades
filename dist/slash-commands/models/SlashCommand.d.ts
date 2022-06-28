@@ -13,4 +13,6 @@ export declare abstract class SlashCommand {
     abstract execute(): Promise<any>;
     get interaction(): import("discord.js").BaseCommandInteraction<import("discord.js").CacheType>;
     reply(content: string, options?: InteractionReplyOptions): Promise<void>;
+    followUp(content: string, options?: InteractionReplyOptions): Promise<import("discord-api-types/v9").APIMessage | import("discord.js").Message<boolean>>;
+    deferReply(): Promise<void>;
 }

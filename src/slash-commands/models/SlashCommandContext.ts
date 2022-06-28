@@ -2,20 +2,16 @@ import { BaseCommandInteraction } from "discord.js";
 
 export class SlashCommandContext {
     interaction: BaseCommandInteraction;
-    body: string;
     args: string[];
-    success: boolean;
     command: string;
 
-    constructor(interaction: BaseCommandInteraction, parsed: any) {
+    constructor(interaction: BaseCommandInteraction) {
         this.interaction = interaction;
-        this.command = parsed.command;
-        this.body = parsed.body;
-        this.args = parsed.arguments;
-        this.success = parsed.success;
+        this.command = interaction.commandName;
+        this.args = [];
     }
 
-    getString() {
-      return this.body;
+    getCommandName() {
+      return this.command;
     }
 }

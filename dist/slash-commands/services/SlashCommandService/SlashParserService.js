@@ -30,11 +30,7 @@ let SlashParserService = SlashParserService_1 = class SlashParserService {
      * @returns A new SlashCommandContext or null
      */
     parse(interaction) {
-        const parsed = "";
-        // if (!parsed.success) {
-        //     return null;
-        // };
-        return new models_1.SlashCommandContext(interaction, parsed);
+        return new models_1.SlashCommandContext(interaction);
     }
 };
 SlashParserService = SlashParserService_1 = __decorate([

@@ -9,20 +9,30 @@ import { SlashCommandContext } from "./SlashCommandContext";
  */
 @injectable()
 export abstract class SlashCommand {
-    /** information on the current command invocation */
-    @inject('SlashCommandContext')
-    context: SlashCommandContext;
+  /** information on the current command invocation */
+  @inject("SlashCommandContext")
+  context: SlashCommandContext;
 
-    /** service for getting data from discord */
-    @inject(DiscordService)
-    discord: DiscordService;
+  /** service for getting data from discord */
+  @inject(DiscordService)
+  discord: DiscordService;
 
-    /** main command logic handler */
-    abstract execute(): Promise<any>;
+  /** main command logic handler */
+  abstract execute(): Promise<any>;
 
-    get interaction() { return this.context.interaction; }
+  get interaction() {
+    return this.context.interaction;
+  }
 
-    public reply(content: string, options?: InteractionReplyOptions) {
-        return this.interaction.reply({ ...options, content });
-    }
+  public reply(content: string, options?: InteractionReplyOptions) {
+    return this.interaction.reply({ ...options, content });
+  }
+
+  public followUp(content: string, options?: InteractionReplyOptions) {
+    return this.interaction.followUp({ ...options, content });
+  }
+
+  public async deferReply() {
+    return await this.interaction.deferReply();
+  }
 }

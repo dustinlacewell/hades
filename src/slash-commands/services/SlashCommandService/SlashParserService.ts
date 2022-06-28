@@ -4,40 +4,34 @@ import { singleton } from "../../../decorators";
 import { SlashCommandContext } from "../../models";
 
 export type SlashParserServiceOptions = {
-    prefix?: string,
-}
+  prefix?: string;
+};
 
 export const defaults: SlashParserServiceOptions = {
-    prefix: "!",
-}
+  prefix: "!",
+};
 
 @singleton(SlashParserService)
 export class SlashParserService {
-    options: SlashParserServiceOptions
+  options: SlashParserServiceOptions;
 
-    constructor(
-        @optional()
-        @inject("PARSER_OPTIONS")
-        options?: SlashParserServiceOptions
-    ) {
-        this.options = {
-            ...defaults,
-            ...options,
-        }
-    }
+  constructor(
+    @optional()
+    @inject("PARSER_OPTIONS")
+    options?: SlashParserServiceOptions
+  ) {
+    this.options = {
+      ...defaults,
+      ...options,
+    };
+  }
 
-    /**
-     * Parse a Discord.js interaction into a SlashCommandContext
-     * @param msg The underlying Discord.js Slash Command Interaction
-     * @returns A new SlashCommandContext or null
-     */
-    parse(interaction: BaseCommandInteraction): SlashCommandContext | null {
-        const parsed = "";
-
-        // if (!parsed.success) {
-        //     return null;
-        // };
-
-        return new SlashCommandContext(interaction, parsed);
-    }
+  /**
+   * Parse a Discord.js interaction into a SlashCommandContext
+   * @param msg The underlying Discord.js Slash Command Interaction
+   * @returns A new SlashCommandContext or null
+   */
+  parse(interaction: BaseCommandInteraction): SlashCommandContext | null {
+    return new SlashCommandContext(interaction);
+  }
 }

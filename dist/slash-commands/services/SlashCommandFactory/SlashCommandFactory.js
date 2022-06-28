@@ -88,7 +88,7 @@ class SlashCommandFactory {
             // subcontainer config
             const subContainer = this.createSubContainer(context);
             // parse, validate and bind argument values
-            yield this.installArguments(subContainer, context);
+            // await this.installArguments(subContainer, context);
             // resolve command instance
             const inst = subContainer.get(this.meta.target);
             // run instance-method validators

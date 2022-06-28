@@ -17,56 +17,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SlashCommandBotService = void 0;
 const inversify_1 = require("inversify");
 const HadesBotService_1 = require("../../services/HadesBotService");
 const SlashCommandService_1 = require("./SlashCommandService/SlashCommandService");
-const commands_1 = __importDefault(require("../commands"));
 let SlashCommandBotService = class SlashCommandBotService extends HadesBotService_1.HadesBotService {
     // @inject(SlashCommandHelpService)
     // helpService: SlashCommandHelpService
     onReady() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('Executing onReady...');
-            yield this.client.application.commands.set(commands_1.default);
+            console.log("Executing onReady...");
+            yield this.commandService.registerCommands(this.client);
+            //await this.client.application.commands.set(Commands);
         });
     }
     onInteractionCreate(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('Executing onInteractionCreate...');
+            console.log("Executing onInteractionCreate...");
             if (!interaction.isCommand() || interaction.isContextMenu()) {
-                console.log("this is not a command");
                 return;
             }
-            console.log("this is a command");
-            yield this.executeSlashCommand(interaction);
-            // const command = this.client.commands.get(interaction.commandName);
-            // interaction.reply("interactionCreated")
-            // this.commandService.dispatch(interaction);
-        });
-    }
-    executeSlashCommand(interaction) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const slashCommand = commands_1.default.find(command => command.name === interaction.commandName);
-            if (!slashCommand) {
-                interaction.followUp({ content: "There was an error." });
-                return;
-            }
-            yield interaction.deferReply();
-            slashCommand.run(this.client, interaction);
+            // await this.executeSlashCommand(interaction);
+            this.commandService.dispatch(interaction);
         });
     }
 };
 __decorate([
     (0, inversify_1.inject)(SlashCommandService_1.SlashCommandService),
-    __metadata("design:type", SlashCommandService_1.SlashCommandService
-    // @inject(SlashCommandHelpService)
-    // helpService: SlashCommandHelpService
-    )
+    __metadata("design:type", SlashCommandService_1.SlashCommandService)
 ], SlashCommandBotService.prototype, "commandService", void 0);
 SlashCommandBotService = __decorate([
     (0, inversify_1.injectable)()

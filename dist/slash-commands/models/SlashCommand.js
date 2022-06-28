@@ -8,6 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SlashCommand = void 0;
 const inversify_1 = require("inversify");
@@ -17,13 +26,23 @@ const SlashCommandContext_1 = require("./SlashCommandContext");
  * Base slash command class.
  */
 let SlashCommand = class SlashCommand {
-    get interaction() { return this.context.interaction; }
+    get interaction() {
+        return this.context.interaction;
+    }
     reply(content, options) {
         return this.interaction.reply(Object.assign(Object.assign({}, options), { content }));
     }
+    followUp(content, options) {
+        return this.interaction.followUp(Object.assign(Object.assign({}, options), { content }));
+    }
+    deferReply() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.interaction.deferReply();
+        });
+    }
 };
 __decorate([
-    (0, inversify_1.inject)('SlashCommandContext'),
+    (0, inversify_1.inject)("SlashCommandContext"),
     __metadata("design:type", SlashCommandContext_1.SlashCommandContext)
 ], SlashCommand.prototype, "context", void 0);
 __decorate([

@@ -26,7 +26,7 @@ let StringParser = class StringParser extends SlashArgParser_1.SlashArgParser {
     }
     parse(arg, context) {
         return __awaiter(this, void 0, void 0, function* () {
-            return context.getString();
+            return context.getCommandName();
         });
     }
 };

@@ -14,7 +14,8 @@ export class SlashCommandBotService extends HadesBotService {
 
   async onReady() {
     console.log("Executing onReady...");
-    await this.client.application.commands.set(Commands);
+    await this.commandService.registerCommands(this.client);
+    //await this.client.application.commands.set(Commands);
   }
 
   async onInteractionCreate<T extends Interaction>(interaction: T) {
@@ -28,17 +29,17 @@ export class SlashCommandBotService extends HadesBotService {
     this.commandService.dispatch(interaction);
   }
 
-  async executeSlashCommand(interaction: BaseCommandInteraction) {
-    const slashCommand = Commands.find(
-      (command) => command.name === interaction.commandName
-    );
+  // async executeSlashCommand(interaction: BaseCommandInteraction) {
+  //   const slashCommand = Commands.find(
+  //     (command) => command.name === interaction.commandName
+  //   );
 
-    if (!slashCommand) {
-      interaction.followUp({ content: "There was an error." });
-      return;
-    }
+  //   if (!slashCommand) {
+  //     interaction.followUp({ content: "There was an error." });
+  //     return;
+  //   }
 
-    await interaction.deferReply();
-    slashCommand.run(this.client, interaction);
-  }
+  //   await interaction.deferReply();
+  //   slashCommand.run(this.client, interaction);
+  // }
 }

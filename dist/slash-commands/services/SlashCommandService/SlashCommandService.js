@@ -17,6 +17,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var SlashCommandService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SlashCommandService = void 0;
@@ -25,6 +28,7 @@ const singleton_1 = require("../../../decorators/singleton");
 const SlashArgError_1 = require("../../errors/SlashArgError");
 const SlashCommandFactoryRegistry_1 = require("../SlashCommandFactory/SlashCommandFactoryRegistry");
 const SlashParserService_1 = require("./SlashParserService");
+const commands_1 = __importDefault(require("../../builtins/commands"));
 let SlashCommandService = SlashCommandService_1 = class SlashCommandService {
     // @inject(SlashCommandHelpService)
     // help: SlashCommandHelpService
@@ -61,19 +65,19 @@ let SlashCommandService = SlashCommandService_1 = class SlashCommandService {
             this.execute(parsedMessage);
         }
     }
+    registerCommands(client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield client.application.commands.set(commands_1.default);
+        });
+    }
 };
 __decorate([
     (0, inversify_1.inject)(SlashParserService_1.SlashParserService),
-    __metadata("design:type", SlashParserService_1.SlashParserService
-    /** factories for creating command instances */
-    )
+    __metadata("design:type", SlashParserService_1.SlashParserService)
 ], SlashCommandService.prototype, "parserService", void 0);
 __decorate([
     (0, inversify_1.inject)(SlashCommandFactoryRegistry_1.SlashCommandFactoryRegistry),
-    __metadata("design:type", SlashCommandFactoryRegistry_1.SlashCommandFactoryRegistry
-    // @inject(SlashCommandHelpService)
-    // help: SlashCommandHelpService
-    )
+    __metadata("design:type", SlashCommandFactoryRegistry_1.SlashCommandFactoryRegistry)
 ], SlashCommandService.prototype, "factories", void 0);
 SlashCommandService = SlashCommandService_1 = __decorate([
     (0, singleton_1.singleton)(SlashCommandService_1)

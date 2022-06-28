@@ -1,53 +1,61 @@
-import { BaseCommandInteraction } from "discord.js";
+import { BaseCommandInteraction, Client } from "discord.js";
 import { inject } from "inversify";
 import { singleton } from "../../../decorators/singleton";
 import { SlashArgError } from "../../errors/SlashArgError";
+import { SlashCommand } from "../../models";
 import { SlashCommandContext } from "../../models/SlashCommandContext";
 import { SlashCommandFactoryRegistry } from "../SlashCommandFactory/SlashCommandFactoryRegistry";
 import { SlashParserService } from "./SlashParserService";
+import Commands from "../../builtins/commands";
 
 @singleton(SlashCommandService)
 export class SlashCommandService {
+  /** service for parsing incoming interactions */
+  @inject(SlashParserService)
+  parserService: SlashParserService;
 
-    /** service for parsing incoming interactions */
-    @inject(SlashParserService)
-    parserService: SlashParserService
+  /** factories for creating command instances */
+  @inject(SlashCommandFactoryRegistry)
+  factories: SlashCommandFactoryRegistry;
 
-    /** factories for creating command instances */
-    @inject(SlashCommandFactoryRegistry)
-    factories: SlashCommandFactoryRegistry
+  command: SlashCommand;
+  // @inject(SlashCommandHelpService)
+  // help: SlashCommandHelpService
 
-    // @inject(SlashCommandHelpService)
-    // help: SlashCommandHelpService
+  async execute(ctx: SlashCommandContext) {
+    const factory = this.factories.factoryFor(ctx.command);
 
-    async execute(ctx: SlashCommandContext) {
-      const factory = this.factories.factoryFor(ctx.command)
-
-      if (factory) {
-        try {
-            const command = await factory.create(ctx);
-            await command.execute();
-        } catch (e: unknown) {
-            if (e instanceof SlashArgError) {
-                if (e.showHelp) {
-                    ctx.interaction.reply({
-                        content: e.message,
-                    });
-                } else {
-                    ctx.interaction.reply(e.message);
-                }
-            } else {
-                ctx.interaction.reply("Erm, uh well something went wrong. Dunno what though.");
-                console.error(e);
-            }
+    if (factory) {
+      try {
+        const command = await factory.create(ctx);
+        await command.execute();
+      } catch (e: unknown) {
+        if (e instanceof SlashArgError) {
+          if (e.showHelp) {
+            ctx.interaction.reply({
+              content: e.message,
+            });
+          } else {
+            ctx.interaction.reply(e.message);
+          }
+        } else {
+          ctx.interaction.reply(
+            "Erm, uh well something went wrong. Dunno what though."
+          );
+          console.error(e);
         }
       }
     }
+  }
 
-    dispatch(interaction: BaseCommandInteraction) {
-      const parsedMessage = this.parserService.parse(interaction)
-      if (parsedMessage) {
-          this.execute(parsedMessage)
-      }
+  dispatch(interaction: BaseCommandInteraction) {
+    const parsedMessage = this.parserService.parse(interaction);
+    if (parsedMessage) {
+      this.execute(parsedMessage);
     }
+  }
+
+  async registerCommands(client: Client) {
+    await client.application.commands.set(Commands);
+  }
 }

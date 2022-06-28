@@ -19,6 +19,13 @@ let PingCommand = class PingCommand extends SlashCommand_1.SlashCommand {
         const total = (seconds * 1000 + milliseconds) / 1000.0;
         return this.reply(`Pong in ${total} seconds!`);
     }
+    static getRegistrationData() {
+        return {
+            name: "ping",
+            description: "Returns pong",
+            type: "CHAT_INPUT",
+        };
+    }
 };
 PingCommand = __decorate([
     (0, decorators_1.command)("ping")
