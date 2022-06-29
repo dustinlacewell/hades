@@ -2,7 +2,6 @@ import { BaseCommandInteraction, Client } from "discord.js";
 import { inject } from "inversify";
 import { singleton } from "../../../decorators/singleton";
 import { SlashArgError } from "../../errors/SlashArgError";
-import { SlashCommand } from "../../models";
 import { SlashCommandContext } from "../../models/SlashCommandContext";
 import { SlashCommandFactoryRegistry } from "../SlashCommandFactory/SlashCommandFactoryRegistry";
 import { SlashParserService } from "./SlashParserService";
@@ -19,7 +18,6 @@ export class SlashCommandService {
   @inject(SlashCommandFactoryRegistry)
   factories: SlashCommandFactoryRegistry;
 
-  command: SlashCommand;
   // @inject(SlashCommandHelpService)
   // help: SlashCommandHelpService
 
