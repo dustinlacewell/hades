@@ -60,9 +60,7 @@ export class SlashCommandService {
     await client.application.commands.set(this.getCommandRegistrationMeta());
   }
 
-  getCommandRegistrationMeta(): Command[] {
-    return getSlashCommandMetas().map((meta) => {
-      return meta.registrationDetails as Command;
-    });
+  protected getCommandRegistrationMeta(): Command[] {
+    return getSlashCommandMetas().map((meta) => meta.registrationDetails);
   }
 }
