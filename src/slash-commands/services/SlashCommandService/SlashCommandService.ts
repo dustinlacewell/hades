@@ -6,7 +6,8 @@ import { SlashCommand } from "../../models";
 import { SlashCommandContext } from "../../models/SlashCommandContext";
 import { SlashCommandFactoryRegistry } from "../SlashCommandFactory/SlashCommandFactoryRegistry";
 import { SlashParserService } from "./SlashParserService";
-import Commands from "../../builtins/commands";
+import { Command } from "../../builtins/Command";
+import { getSlashCommandMetas } from "../../metadata/api";
 
 @singleton(SlashCommandService)
 export class SlashCommandService {
@@ -56,6 +57,12 @@ export class SlashCommandService {
   }
 
   async registerCommands(client: Client) {
-    await client.application.commands.set(Commands);
+    await client.application.commands.set(this.getCommandRegistrationMeta());
+  }
+
+  getCommandRegistrationMeta(): Command[] {
+    return getSlashCommandMetas().map((meta) => {
+      return meta.registrationDetails as Command;
+    });
   }
 }

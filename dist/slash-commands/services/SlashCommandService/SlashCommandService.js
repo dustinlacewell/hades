@@ -17,9 +17,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var SlashCommandService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SlashCommandService = void 0;
@@ -28,7 +25,7 @@ const singleton_1 = require("../../../decorators/singleton");
 const SlashArgError_1 = require("../../errors/SlashArgError");
 const SlashCommandFactoryRegistry_1 = require("../SlashCommandFactory/SlashCommandFactoryRegistry");
 const SlashParserService_1 = require("./SlashParserService");
-const commands_1 = __importDefault(require("../../builtins/commands"));
+const api_1 = require("../../metadata/api");
 let SlashCommandService = SlashCommandService_1 = class SlashCommandService {
     // @inject(SlashCommandHelpService)
     // help: SlashCommandHelpService
@@ -67,7 +64,13 @@ let SlashCommandService = SlashCommandService_1 = class SlashCommandService {
     }
     registerCommands(client) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield client.application.commands.set(commands_1.default);
+            yield client.application.commands.set(this.getCommandRegistrationMeta());
+        });
+    }
+    getCommandRegistrationMeta() {
+        return (0, api_1.getSlashCommandMetas)().map((meta) => {
+            console.log("meta", JSON.stringify(meta));
+            return meta.registrationDetails;
         });
     }
 };

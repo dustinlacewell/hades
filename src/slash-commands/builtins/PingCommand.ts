@@ -1,8 +1,11 @@
 import { command } from "../decorators";
 import { SlashCommand } from "../models/SlashCommand";
-import { Command } from "./Command";
 
-@command("ping")
+@command("ping", {
+  name: "ping",
+  description: "Returns pong",
+  type: "CHAT_INPUT",
+})
 export class PingCommand extends SlashCommand {
   execute() {
     const then = this.interaction.createdTimestamp;
@@ -12,13 +15,5 @@ export class PingCommand extends SlashCommand {
     const milliseconds = delta.getMilliseconds();
     const total = (seconds * 1000 + milliseconds) / 1000.0;
     return this.reply(`Pong in ${total} seconds!`);
-  }
-
-  static getRegistrationData(): Command {
-    return {
-      name: "ping",
-      description: "Returns pong",
-      type: "CHAT_INPUT",
-    };
   }
 }
