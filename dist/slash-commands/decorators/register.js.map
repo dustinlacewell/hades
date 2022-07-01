@@ -1,0 +1,1 @@
+{"version":3,"file":"register.js","sourceRoot":"","sources":["../../../src/slash-commands/decorators/register.ts"],"names":[],"mappings":";;;AAEA,0CAGqB;AAErB;;;GAGG;AACH,SAAgB,QAAQ,CAAC,mBAAoD;IAC3E,OAAO,CAAC,MAAW,EAAE,EAAE;QACrB,MAAM,IAAI,GAAG,IAAA,8BAAmB,EAAC,MAAM,CAAC,CAAC;QACzC,IAAI,CAAC,mBAAmB,GAAG,mBAAmB,CAAC;QAC/C,wBAAwB;QACxB,+BAA+B;IACjC,CAAC,CAAC;AACJ,CAAC;AAPD,4BAOC"}

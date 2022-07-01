@@ -1,11 +1,8 @@
 import { Collection } from "discord.js";
 import { Constructor } from "../../utils";
+import { Command } from "../builtins";
 import { SlashArgMeta } from "./SlashArgMeta";
-export declare type SlashCommandRegistrationDetails = {
-    name: string;
-    description: string;
-    type: string;
-};
+export declare type SlashCommandRegistrationDetails = Command;
 /**
  * Decorator metadata for @command
  */

@@ -68,10 +68,7 @@ let SlashCommandService = SlashCommandService_1 = class SlashCommandService {
         });
     }
     getCommandRegistrationMeta() {
-        return (0, api_1.getSlashCommandMetas)().map((meta) => {
-            console.log("meta", JSON.stringify(meta));
-            return meta.registrationDetails;
-        });
+        return (0, api_1.getSlashCommandMetas)().map((meta) => meta.registrationDetails);
     }
 };
 __decorate([

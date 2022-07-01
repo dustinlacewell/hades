@@ -1,1 +1,2 @@
-export * from './PingCommand';
+export * from "./Command";
+export * from "./PingCommand";

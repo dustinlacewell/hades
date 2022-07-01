@@ -21,7 +21,8 @@ let PingCommand = class PingCommand extends SlashCommand_1.SlashCommand {
     }
 };
 PingCommand = __decorate([
-    (0, decorators_1.command)("ping", {
+    (0, decorators_1.command)("ping"),
+    (0, decorators_1.register)({
         name: "ping",
         description: "Returns pong",
         type: "CHAT_INPUT",

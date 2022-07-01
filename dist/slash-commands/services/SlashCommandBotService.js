@@ -29,7 +29,6 @@ let SlashCommandBotService = class SlashCommandBotService extends HadesBotServic
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Executing onReady...");
             yield this.commandService.registerCommands(this.client);
-            //await this.client.application.commands.set(Commands);
         });
     }
     onInteractionCreate(interaction) {
@@ -38,7 +37,6 @@ let SlashCommandBotService = class SlashCommandBotService extends HadesBotServic
             if (!interaction.isCommand() || interaction.isContextMenu()) {
                 return;
             }
-            // await this.executeSlashCommand(interaction);
             this.commandService.dispatch(interaction);
         });
     }
