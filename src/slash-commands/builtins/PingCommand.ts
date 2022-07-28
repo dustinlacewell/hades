@@ -1,4 +1,4 @@
-import { command, register } from "../decorators";
+import { command } from "../decorators";
 import { SlashCommand } from "../models/SlashCommand";
 
 @command("ping", {
