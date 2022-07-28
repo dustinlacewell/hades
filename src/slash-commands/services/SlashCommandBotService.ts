@@ -11,6 +11,9 @@ export class SlashCommandBotService extends HadesBotService {
   // @inject(SlashCommandHelpService)
   // helpService: SlashCommandHelpService
 
+  @inject(SlashCommandRegistrationService)
+  registrationService: SlashCommandRegistrationService;
+
   async onReady() {
     console.log("Executing onReady...");
     await this.commandService.registerCommands(this.client);

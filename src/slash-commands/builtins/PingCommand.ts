@@ -1,8 +1,7 @@
 import { command, register } from "../decorators";
 import { SlashCommand } from "../models/SlashCommand";
 
-@command("ping")
-@register({
+@command("ping", {
   name: "ping",
   description: "Returns pong",
   type: "CHAT_INPUT",
