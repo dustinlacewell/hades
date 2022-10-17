@@ -1,11 +1,10 @@
 root = true
 
 [*]
-max_line_length = 100
+max_line_length = 120
 trim_trailing_whitespace = true
 end_of_line = lf
-insert_final_newline = false
 
 [*.{ts,json}]
 indent_style = space
-indent_size = 2
+indent_size = 4

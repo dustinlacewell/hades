@@ -3,7 +3,6 @@ import { Client } from "discord.js";
 
 import { singleton } from "../decorators";
 
-
 /**
  * The base Discord client class.
  */
@@ -11,11 +10,7 @@ import { singleton } from "../decorators";
 export class HadesClient extends Client {
     constructor() {
         super({
-            intents: [
-                GatewayIntentBits.Guilds,
-                GatewayIntentBits.MessageContent,
-                GatewayIntentBits.GuildMessages,
-            ]
-        })
+            intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages],
+        });
     }
 }

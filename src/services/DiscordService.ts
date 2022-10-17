@@ -1,10 +1,9 @@
-import { ChannelType } from 'discord-api-types/v10';
-import { CategoryChannel, GuildBasedChannel, TextChannel } from 'discord.js';
-import { inject } from 'inversify';
+import { ChannelType } from "discord-api-types/v10";
+import { CategoryChannel, GuildBasedChannel, TextChannel } from "discord.js";
+import { inject } from "inversify";
 
-import { singleton } from '../decorators';
-import { HadesClient } from './HadesClient';
-
+import { singleton } from "../decorators";
+import { HadesClient } from "./HadesClient";
 
 /**
  * A service for getting guild information from Discord.
@@ -13,123 +12,121 @@ import { HadesClient } from './HadesClient';
  */
 @singleton(DiscordService)
 export class DiscordService {
-  constructor(
-    @inject(HadesClient)
-    private client: HadesClient,
-  ) {}
+    constructor(
+        @inject(HadesClient)
+        private client: HadesClient
+    ) {}
 
-  /**
-   * Get all guilds the bot is in.
-   */
-  get guilds() {
-    return this.client.guilds.cache;
-  }
-
-  /**
-   * Get the name of a guild.
-   * @param guildId The ID of the guild.
-   * @returns string | undefined
-   */
-  getName(guildId: string) {
-    const guild = this.guilds.get(guildId);
-    if (guild !== undefined) {
-      return guild.name;
+    /**
+     * Get all guilds the bot is in.
+     */
+    get guilds() {
+        return this.client.guilds.cache;
     }
-  }
 
-  /**
-   * Get the members of a guild.
-   * @param guildId The ID of the guild.
-   * @returns Collection<string, GuildMember> | undefined
-   */
-  getMembers(guildId: string) {
-    const guild = this.guilds.get(guildId);
-    if (guild !== undefined) {
-      return guild.members.cache;
+    /**
+     * Get the name of a guild.
+     * @param guildId The ID of the guild.
+     * @returns string | undefined
+     */
+    getName(guildId: string) {
+        const guild = this.guilds.get(guildId);
+        if (guild !== undefined) {
+            return guild.name;
+        }
     }
-  }
 
-  /**
-   * Get a member of a guild.
-   * @param guildId The ID of the guild.
-   * @param memberId The ID of the member.
-   * @returns GuildMember | undefined
-   */
-  getMember(guildId: string, memberId: string) {
-    const members = this.getMembers(guildId);
-    if (members !== undefined) {
-      return members.get(memberId);
+    /**
+     * Get the members of a guild.
+     * @param guildId The ID of the guild.
+     * @returns Collection<string, GuildMember> | undefined
+     */
+    getMembers(guildId: string) {
+        const guild = this.guilds.get(guildId);
+        if (guild !== undefined) {
+            return guild.members.cache;
+        }
     }
-  }
 
-  /**
-   * Get the ID of a guild's owner.
-   * @param guildId The ID of the guild.
-   * @returns string | undefined
-   */
-  getOwner(guildId: string) {
-    const guild = this.guilds.get(guildId);
-    if (guild !== undefined) {
-      return guild.ownerId;
+    /**
+     * Get a member of a guild.
+     * @param guildId The ID of the guild.
+     * @param memberId The ID of the member.
+     * @returns GuildMember | undefined
+     */
+    getMember(guildId: string, memberId: string) {
+        const members = this.getMembers(guildId);
+        if (members !== undefined) {
+            return members.get(memberId);
+        }
     }
-  }
 
-  /**
-   * Get channels of a certain type.
-   * @param type The type of channel to get.
-   * @param guildId The ID of the guild.
-   * @returns Collection<string, GuildChannel>
-   */
-  getChansOf<T extends GuildBasedChannel>({ type, guildId }: { type: ChannelType; guildId: string; }) {
-    console.log(`Grabbing channels of type ${type} for guild ${guildId}`);
-    const guild = this.guilds.get(guildId);
-    if (guild !== undefined) {
-      return guild.channels.cache
-        .filter((chan, _) => chan.type === type)
-        .mapValues((chan, _) => chan as T)
+    /**
+     * Get the ID of a guild's owner.
+     * @param guildId The ID of the guild.
+     * @returns string | undefined
+     */
+    getOwner(guildId: string) {
+        const guild = this.guilds.get(guildId);
+        if (guild !== undefined) {
+            return guild.ownerId;
+        }
     }
-  }
 
-  /**
-   * Get the channel categories of a guild.
-   * @param guildId The ID of the guild.
-   * @returns Collection<string, CategoryChannel>
-   */
-  getCategories(guildId: string) {
-    return this.getChansOf<CategoryChannel>({ type: ChannelType.GuildCategory, guildId });
-  }
-
-  /**
-   * Get the channels of a guild.
-   * @param guildId The ID of the guild.
-   * @returns Collection<string, TextChannel>
-   */
-  getChannels(guildId: string) {
-    return this.getChansOf<TextChannel>({ type: ChannelType.GuildText, guildId });
-  }
-
-  /**
-   * Get a channel of a guild.
-   * @param guildId The ID of the guild.
-   * @param channelId The ID of the channel.
-   * @returns GuildChannel | undefined
-   */
-  getChannel(guildId: string, channelId: string) {
-    const guild = this.guilds.get(guildId);
-    if (guild !== undefined) {
-      return guild.channels.cache.get(channelId);
+    /**
+     * Get channels of a certain type.
+     * @param type The type of channel to get.
+     * @param guildId The ID of the guild.
+     * @returns Collection<string, GuildChannel>
+     */
+    getChansOf<T extends GuildBasedChannel>({ type, guildId }: { type: ChannelType; guildId: string }) {
+        console.log(`Grabbing channels of type ${type} for guild ${guildId}`);
+        const guild = this.guilds.get(guildId);
+        if (guild !== undefined) {
+            return guild.channels.cache.filter((chan, _) => chan.type === type).mapValues((chan, _) => chan as T);
+        }
     }
-  }
 
-  /**
-   * Get the roles of a guild.
-   * @param guildId The ID of the guild.
-   * @returns Collection<string, Role>
-   */
-  getRoles(guildId: string) {
-    const guild = this.guilds.get(guildId);
-    if (guild !== undefined) {
-      return guild.roles.cache;
+    /**
+     * Get the channel categories of a guild.
+     * @param guildId The ID of the guild.
+     * @returns Collection<string, CategoryChannel>
+     */
+    getCategories(guildId: string) {
+        return this.getChansOf<CategoryChannel>({ type: ChannelType.GuildCategory, guildId });
     }
-  }
+
+    /**
+     * Get the channels of a guild.
+     * @param guildId The ID of the guild.
+     * @returns Collection<string, TextChannel>
+     */
+    getChannels(guildId: string) {
+        return this.getChansOf<TextChannel>({ type: ChannelType.GuildText, guildId });
+    }
+
+    /**
+     * Get a channel of a guild.
+     * @param guildId The ID of the guild.
+     * @param channelId The ID of the channel.
+     * @returns GuildChannel | undefined
+     */
+    getChannel(guildId: string, channelId: string) {
+        const guild = this.guilds.get(guildId);
+        if (guild !== undefined) {
+            return guild.channels.cache.get(channelId);
+        }
+    }
+
+    /**
+     * Get the roles of a guild.
+     * @param guildId The ID of the guild.
+     * @returns Collection<string, Role>
+     */
+    getRoles(guildId: string) {
+        const guild = this.guilds.get(guildId);
+        if (guild !== undefined) {
+            return guild.roles.cache;
+        }
+    }
 }
