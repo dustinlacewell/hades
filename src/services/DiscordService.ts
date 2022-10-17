@@ -79,7 +79,7 @@ export class DiscordService {
      * @param guildId The ID of the guild.
      * @returns Collection<string, GuildChannel>
      */
-    getChansOf<T extends GuildBasedChannel>({ type, guildId }: { type: ChannelType; guildId: string }) {
+    getChansOf<T extends GuildBasedChannel>(type: ChannelType, guildId: string) {
         console.log(`Grabbing channels of type ${type} for guild ${guildId}`);
         const guild = this.guilds.get(guildId);
         if (guild !== undefined) {
@@ -93,7 +93,7 @@ export class DiscordService {
      * @returns Collection<string, CategoryChannel>
      */
     getCategories(guildId: string) {
-        return this.getChansOf<CategoryChannel>({ type: ChannelType.GuildCategory, guildId });
+        return this.getChansOf<CategoryChannel>(ChannelType.GuildCategory, guildId);
     }
 
     /**
@@ -102,7 +102,7 @@ export class DiscordService {
      * @returns Collection<string, TextChannel>
      */
     getChannels(guildId: string) {
-        return this.getChansOf<TextChannel>({ type: ChannelType.GuildText, guildId });
+        return this.getChansOf<TextChannel>(ChannelType.GuildText, guildId);
     }
 
     /**
